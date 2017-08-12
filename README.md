@@ -2,7 +2,7 @@
 
 [![github](https://img.shields.io/github/followers/willin.svg?style=social&label=Follow)](https://github.com/willin)
 
-前端基于Vue/Vuex/Vuetify,后端基于Sequelize/Koa的Coding团队任务管理系统. 一个完全前后端分离,通过Mockjs模拟测试数据的完整项目演示.
+前端基于Vue/Vuex/Vuetify,通过Mockjs模拟测试数据,后端基于Sequelize/Koa的Coding团队任务管理系统. 一个完全前后端分离的完整项目演示.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -35,15 +35,15 @@
 - [ ] 时间轴UI
   - [ ] 筛选 (与四象限大部分重叠)
 - 统计模块 
-  - [x] 图表引入 (如:Echarts) #85ab677
+  - [x] 图表引入 (如:Echarts)
   - [ ] 用户统计
   - [ ] 项目统计
   - [ ] 团队综合统计
 
 ### 功能
 
-- [x] 数组筛选方法 #10a7df4
-- [x] Webpack打包优化 #9cc3c92 #85ab677
+- [x] 数组筛选方法
+- [x] Webpack打包优化
 - [ ] 任务按时间排序
 - [x] 筛选路由匹配 
 

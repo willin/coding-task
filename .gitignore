@@ -1,0 +1,7 @@
+node_modules/
+demo/
+server/config/
+
+.DS_Store
+*.log
+*.log.*

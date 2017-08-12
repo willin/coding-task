@@ -1,0 +1,54 @@
+<template>
+  <v-list two-line>
+    <template v-for="task in tasks">
+      <v-list-tile avatar v-bind:key="task.content">
+        <v-list-tile-avatar>
+          <img v-bind:src="task.owner.avatar" />
+        </v-list-tile-avatar>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            <span class='grey--text text--darken-2'>{{task.owner.name}} - </span>
+            {{task.content}}
+          </v-list-tile-title>
+          <v-list-tile-sub-title>
+            <v-chip small>{{task.project.name}}</v-chip>
+            <v-chip v-if="task.deadline" small>{{ new Date(task.deadline).toLocaleDateString() }}</v-chip>
+            <template v-for="label in task.labels">
+              <v-chip v-text="label.name" v-bind:style="{color: label.color, borderColor: label.color}" v-bind:key="label.id" label outline small></v-chip>
+            </template>
+          </v-list-tile-sub-title>
+        </v-list-tile-content>
+        <v-list-tile-action>#{{task.number}}</v-list-tile-action>
+      </v-list-tile>
+    </template>
+  </v-list>
+</template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  props: ['list'],
+  name: 'tasks',
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapGetters([
+      'users',
+      'projects',
+      'labels',
+      'tasklabels'
+    ]),
+    tasks() {
+      return this.list.map((task) => {
+        /* eslint-disable no-param-reassign */
+        task.owner = this.users.find(x => x.id === task.owner_id);
+        task.labels = this.tasklabels.filter(x => x.task_id === task.id).map(x => this.labels.find(y => y.id === x.label_id));
+        task.project = this.projects.find(x => x.id === task.project_id);
+        return task;
+      });
+    }
+  }
+};
+</script>

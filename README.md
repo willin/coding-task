@@ -93,6 +93,11 @@ yarn dev
 # 或 npm run dev
 ```
 
+带服务器端的真是环境测试:
+
+```bash
+yarn start
+```
 
 ### 路由设计
 

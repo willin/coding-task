@@ -6,13 +6,26 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('./webpack.config');
 const setup = require('../mock');
 
+const devServer = {
+  historyApiFallback: true,
+  noInfo: true,
+  port: 3993
+};
+
+if (process.env.API_ENV === 'real') {
+  const proxy = {
+    '/api': {
+      target: 'http://localhost:3933',
+      pathRewrite: { '^/api': '' }
+    }
+  };
+  devServer.proxy = proxy;
+} else {
+  devServer.setup = setup;
+}
+
 module.exports = Object.assign({}, config, {
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    setup,
-    port: 3933
-  },
+  devServer,
   performance: {
     hints: false
   },

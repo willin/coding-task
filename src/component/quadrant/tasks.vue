@@ -3,7 +3,7 @@
     <template v-for="task in tasks">
       <v-list-tile avatar v-bind:key="task.content">
         <v-list-tile-avatar>
-          <img v-bind:src="task.owner.avatar" />
+          <img v-bind:src=" task.owner.avatar.startsWith('/') ? `https://coding.net${task.owner.avatar}` : task.owner.avatar" />
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title>

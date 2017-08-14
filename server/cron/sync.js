@@ -1,5 +1,7 @@
 const { getTeams, getTeamProjects, getProjectTasks } = require('../lib/api');
 const { model: { User, Team, Project, Task, Label, TaskLabels } } = require('../model');
+const { defaults: { type } } = require('../config');
+const redis = require('../lib/redis');
 
 // eslint-disable-next-line camelcase
 const updateLabels = (task_id, labels) => {
@@ -50,6 +52,11 @@ const updateTeams = (teams) => {
 };
 
 module.exports = async () => {
+  if (type === 'application') {
+    // 检查 Access Token 是否存在, 不存在暂停任务执行
+    const token = await redis.get('access_token');
+    if (token === null) { return false; }
+  }
   const teams = await getTeams();
   updateTeams(teams);
   return true;

@@ -1,16 +1,27 @@
 const request = require('request');
 const { getDefer } = require('@dwing/common');
-const { auth } = require('../config');
+const { auth, type } = require('../config');
+const redis = require('./redis');
 
-module.exports = ({ url = '' } = {}) => {
+module.exports = async ({ url = '' } = {}) => {
   const deferred = getDefer();
-  request.get({
+  const options = {
     url: `https://coding.net/api/${url}`,
-    method: 'GET',
-    headers: {
-      Authorization: auth
+    method: 'GET'
+  };
+  // 参数已经包含 access_token 的不做处理
+  if (options.url.indexOf('access_token') === -1) {
+    // 不使用 OAuth 2.0 查询的时候, 从配置文件中取 Auth
+    if (type === 'token') {
+      options.headers = {
+        Authorization: auth
+      };
+    } else {
+      const accessToken = await redis.get('access_token');
+      options.url = options.url.indexOf('?') ? `&access_token=${accessToken}` : `?access_token=${accessToken}`;
     }
-  }, (err, httpResponse, body) => {
+  }
+  request.get(options, (err, httpResponse, body) => {
     if (err) {
       deferred.reject(err);
     }

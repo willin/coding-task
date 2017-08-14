@@ -1,12 +1,29 @@
-const auth = {
-  username: '', // Coding 的用户名
-  token: '' // Coding 获取的 Token
+const defaults = {
+  // 可选参数: 
+  // application 使用Oauth 2.0方式拉取数据
+  // token 使用访问令牌方式方式拉取数据
+  type: 'application',
+  // 通过指定管理员进行数据拉取, 或者使用哪个用户名进行访问令牌生成
+  // 管理员需要参与所有需要统计的团队及项目
+  admin: 'willin'
 };
+exports.defaults = defaults;
 
-// 需要统计分析的团队列表
-exports.team = [
+// 用于 Coding 用户登录
+// 创建应用: https://coding.net/user/account/setting/applications
+exports.clientId = ''; // Coding 应用的 ID
+exports.clientSecret = ''; // Coding 应用的Secret
+
+// 需要统计分析的团队列表, 及允许下列团队用户成员进行登录
+exports.teams = [
   'airdwing'
 ];
+
+// 如果系统类型未选择 使用访问令牌方式方式拉取数据, 可以留默认值不填
+// 创建访问令牌: https://coding.net/user/account/setting/tokens
+// 需要的权限: team, project (均为只读)
+const token = '';
+exports.auth = `Basic ${new Buffer(`${defaults.admin}:${token}`).toString('base64')}`;
 
 // 服务器配置
 exports.server = {
@@ -14,7 +31,7 @@ exports.server = {
   hostname: '127.0.0.1'
 };
 
-// 数据库配置
+// MySQL数据库配置
 exports.mysql = {
   database: 'coding',
   host: '127.0.0.1',
@@ -22,4 +39,13 @@ exports.mysql = {
   password: 'root'
 };
 
-exports.auth = `Basic ${new Buffer(`${auth.username}:${auth.token}`).toString('base64')}`;
+// Redis配置
+// 如果系统类型未选择 使用访问令牌方式方式拉取数据, 可以留默认值不填
+// 如果选择Oauth 2.0方式拉取数据, 需要安装 Redis 服务
+exports.redis = {
+  host: '127.0.0.1',
+  port: 6379,
+  db: 0,
+  ttl: 3600,
+  prefix: 'tasks:'
+};

@@ -28,8 +28,8 @@ router.get('/coding/callback', async (ctx) => {
     // 获取用户名
     const user = await getCurrentUser({ accessToken: token.access_token });
     if (user.global_key === admin) {
-      await redis.setex('access_token', 86300, token.access_token);
-      await redis.setex('refresh_token', 86300, token.refresh_token);
+      await redis.setex('access_token', ~~token.expires_in - 3600, token.access_token);
+      await redis.setex('refresh_token', ~~token.expires_in - 3600, token.refresh_token);
     }
     // 登录成功跳转
     ctx.redirect('/');

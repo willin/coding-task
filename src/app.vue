@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <v-toolbar fixed>
+    <v-toolbar :show="show" v-if="show.header" fixed>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="goRoute('/quadrant')">
@@ -27,15 +27,22 @@ import { mapActions } from 'vuex';
 export default {
   data() {
     return {
+      inited: false,
       title: this.$route.name
     };
   },
-  created() {
-    this.init();
+  computed: {
+    show() {
+      const show = this.$route.path !== '/login';
+      return {
+        header: show
+      };
+    }
   },
   methods: {
     async init() {
       await this.fetch();
+      this.inited = true;
     },
     goRoute(route) {
       this.$router.push(route);
@@ -47,6 +54,11 @@ export default {
   watch: {
     $route() {
       this.title = this.$route.name;
+    }
+  },
+  beforeUpdate() {
+    if (this.$route.path !== '/login' && this.inited === false) {
+      this.init();
     }
   }
 };

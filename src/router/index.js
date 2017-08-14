@@ -11,6 +11,10 @@ const router = new Router({
   routes: [
     { path: '/', redirect: '/quadrant' },
     {
+      path: '/login',
+      name: '登录'
+    },
+    {
       path: '/quadrant/(.*)?',
       name: '四象限视图',
       component: quadrant
@@ -29,7 +33,10 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = to.name;
+  // if (to.path !== '/login') {
+  //   router.replace('/login');
+  // }
+  document.title = `${to.name} | Coding Task`;
   next();
 });
 

@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import axios from 'axios';
 import quadrant from '../component/quadrant';
 import timeline from '../component/timeline';
 import statistics from '../component/statistics';
 import login from '../component/login';
+import { STORAGE_PREFIX } from '../config';
 
 Vue.use(Router);
 
@@ -34,10 +36,15 @@ const router = new Router({
   ]
 });
 
-router.beforeEach((to, from, next) => {
-  // if (to.path !== '/login') {
-  //   router.replace('/login');
-  // }
+router.beforeEach(async (to, from, next) => {
+  if (to.path !== '/login') {
+    const token = localStorage.getItem(`${STORAGE_PREFIX}:token`);
+    const result = await axios.get(`/api/check?token=${token}`);
+    console.log(result);
+    if (result.data.status === 0) {
+      router.replace('/login');
+    }
+  }
   document.title = `${to.name} | Coding Task`;
   next();
 });

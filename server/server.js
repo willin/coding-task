@@ -39,6 +39,12 @@ router.get('/coding/callback', async (ctx) => {
   ctx.redirect('/login?result=fail');
 });
 
+router.get('/api/check', async (ctx) => {
+  const token = ctx.query.token;
+  const result = await getCurrentUser({ accessToken: token });
+  ctx.body = { status: result === undefined ? 0 : 1 };
+});
+
 router.get('/user', async (ctx) => {
   const data = await User.findAll({
     raw: true

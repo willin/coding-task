@@ -5,7 +5,7 @@ const project = require('./project');
 const task = require('./task');
 const team = require('./team');
 const user = require('./user');
-const { getAccessToken } = require('../server/lib/api');
+const { getAccessToken, getCurrentUser } = require('../server/lib/api');
 
 
 module.exports = (app) => {
@@ -17,7 +17,12 @@ module.exports = (app) => {
       res.redirect('/login?result=500');
       return;
     }
-    res.redirect(`/login?result=${code}`);
+    res.redirect(`/login?result=${token.access_token}`);
+  });
+  app.get('/api/check', async (req, res) => {
+    const token = req.query.token;
+    const result = await getCurrentUser({ accessToken: token });
+    res.json({ status: result === undefined ? 0 : 1 });
   });
   // 模拟数据
   app.get('/api/label', (req, res) => {

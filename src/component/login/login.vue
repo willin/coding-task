@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { CODING_CALLBACK, CODING_CLIENTID } from '../../config';
+import { STORAGE_PREFIX, CODING_CALLBACK, CODING_CLIENTID } from '../../config';
 
 export default {
   data() {
@@ -27,7 +27,7 @@ export default {
       location.href = `https://coding.net/oauth_authorize.html?client_id=${CODING_CLIENTID}&redirect_uri=${CODING_CALLBACK}&response_type=code&scope=user,team,project`;
     } else if (result !== 'err' && result !== 'fail') {
       // 登录成功, 存储Access Token
-      localStorage.setItem('tasks:token', result);
+      localStorage.setItem(`${STORAGE_PREFIX}:token`, result);
       this.$router.push('/');
     }
   }

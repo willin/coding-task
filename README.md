@@ -93,10 +93,21 @@ yarn dev
 # 或 npm run dev
 ```
 
-带服务器端的真是环境测试:
+带服务器端的真实环境测试:
 
 ```bash
 yarn start
+```
+
+在此之前可能会需要手动同步更新所有数据:
+
+```js
+// 创建一个js文件并执行
+const sync = require('./server/cron/sync');
+
+(async () => {
+  console.log(await sync());
+})();
 ```
 
 ### 路由设计

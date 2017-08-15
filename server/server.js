@@ -12,7 +12,7 @@ router.get('/coding/callback', async (ctx) => {
   const code = ctx.query.code;
   const token = await getAccessToken({ code });
   if (token === undefined) {
-    ctx.redirect('/login?500');
+    ctx.redirect('/login?result=500');
     return;
   }
   // 判断是否能够登录
@@ -32,11 +32,11 @@ router.get('/coding/callback', async (ctx) => {
       await redis.setex('refresh_token', ~~token.expires_in - 3600, token.refresh_token);
     }
     // 登录成功跳转
-    ctx.redirect('/');
+    ctx.redirect(`/login?result=${token.access_token}`);
     return;
   }
   // 登录失败跳转
-  ctx.redirect('/login?fail');
+  ctx.redirect('/login?result=fail');
 });
 
 router.get('/user', async (ctx) => {

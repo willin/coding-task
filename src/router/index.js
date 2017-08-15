@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import quadrant from '../component/quadrant';
 import timeline from '../component/timeline';
 import statistics from '../component/statistics';
+import login from '../component/login';
 
 Vue.use(Router);
 
@@ -12,7 +13,8 @@ const router = new Router({
     { path: '/', redirect: '/quadrant' },
     {
       path: '/login',
-      name: '登录'
+      name: '登录',
+      component: login
     },
     {
       path: '/quadrant/(.*)?',

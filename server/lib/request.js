@@ -18,7 +18,7 @@ module.exports = async ({ url = '' } = {}) => {
       };
     } else {
       const accessToken = await redis.get('access_token');
-      options.url = options.url.indexOf('?') ? `&access_token=${accessToken}` : `?access_token=${accessToken}`;
+      options.url += (options.url.indexOf('?') !== -1 ? `&access_token=${accessToken}` : `?access_token=${accessToken}`);
     }
   }
   request.get(options, (err, httpResponse, body) => {

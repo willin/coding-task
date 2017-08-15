@@ -27,7 +27,10 @@ exports.getTeams = async ({ accessToken = '' } = {}) => {
   const result = await request({
     url: `team/joined${accessToken === '' ? '' : `?access_token=${accessToken}`}`
   });
-  return result.data.filter(x => teams.includes(x.global_key));
+  if (Array.isArray(result.data)) {
+    return result.data.filter(x => teams.includes(x.global_key));
+  }
+  return [];
 };
 
 /**

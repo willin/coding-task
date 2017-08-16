@@ -40,7 +40,6 @@ router.beforeEach(async (to, from, next) => {
   if (to.path !== '/login') {
     const token = localStorage.getItem(`${STORAGE_PREFIX}:token`);
     const result = await axios.get(`/api/check?token=${token}`);
-    console.log(result);
     if (result.data.status === 0) {
       router.replace('/login');
     }

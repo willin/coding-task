@@ -6,7 +6,7 @@
     "dev": "webpack-dev-server --config build/webpack.dev.js --open --hot",
     "start": "API_ENV=real webpack-dev-server --config build/webpack.dev.js --open --hot & node server",
     "build": "NODE_ENV=production webpack --config build/webpack.config.js --progress --hide-modules",
-    "analyze":"NODE_ENV=production webpack --config build/webpack.analyze.js --progress --hide-modules"
+    "analyze": "NODE_ENV=production webpack --config build/webpack.analyze.js --progress --hide-modules"
   },
   "repository": "git@github.com:AirDwing/vuetify-demo.git",
   "author": "willin <willin@willin.org>",
@@ -39,8 +39,8 @@
     "axios": "^0.16.2",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.25.0",
+    "vchart": "^0.0.1",
     "vue": "^2.4.2",
-    "vue-echarts": "^2.4.0",
     "vue-router": "^2.7.0",
     "vuetify": "^0.14.8",
     "vuex": "^2.3.1"

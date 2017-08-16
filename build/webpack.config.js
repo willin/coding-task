@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -38,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         // exclude: /node_modules/,
         include: [
           path.resolve(__dirname, '../src'),
@@ -54,11 +55,13 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        loader: ExtractTextPlugin.extract(
-          `${require.resolve('style-loader')}!` +
-          `${require.resolve('css-loader')}!` +
-          `${require.resolve('stylus-loader')}`
-        )
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'stylus-loader'
+          ]
+        })
       }
     ]
   },
@@ -94,6 +97,13 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/index.html')
+    }),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|css|html)$/,
+      threshold: 10240,
+      minRatio: 0.8
     })
   ]
 };

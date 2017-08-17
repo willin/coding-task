@@ -12,7 +12,7 @@
           </v-list-tile-title>
           <v-list-tile-sub-title>
             <v-chip small>{{task.project.name}}</v-chip>
-            <v-chip v-if="task.deadline" small>{{ new Date(task.deadline).toLocaleDateString() }}</v-chip>
+            <timetogo v-if="task.deadline" :time="task.deadline"></timetogo>
             <template v-for="label in task.labels">
               <v-chip v-text="label.name" v-bind:style="{color: label.color, borderColor: label.color}" v-bind:key="label.id" label outline small></v-chip>
             </template>
@@ -26,10 +26,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import timetogo from '../../component/timetogo.vue';
 
 export default {
   props: ['list'],
   name: 'tasks',
+  components: {
+    timetogo
+  },
   data() {
     return {};
   },

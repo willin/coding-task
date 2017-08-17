@@ -54,12 +54,11 @@ const getters = {
   },
   tasksUndone: (state, getter) => {
     // 未完成任务按照时间升序排列, 越旧的越靠前
-    const tasks = getter.tasks.where({ status: 1 }).sort((prev, next) => {
-      if (prev.deadline === 0 || next.deadline === 0) {
-        return 1;
-      }
-      return prev.deadline > next.deadline ? 1 : -1;
-    });
+    // 第一次排序: [过去,未来] (不包含[0])
+    const scheduled = getter.tasks.filter(t => t.deadline !== 0 && t.status === 1).sort((x, y) => x.deadline - y.deadline);
+    // 关键段: [0*]
+    const unscheduled = getter.tasks.filter(t => t.deadline === 0 && t.status === 1).sort((x, y) => x.created_at - y.created_at);
+    const tasks = [...scheduled, ...unscheduled];
     tasks.__proto__.where = handleWhere;
     tasks.__proto__.page = handlePager;
     return tasks;

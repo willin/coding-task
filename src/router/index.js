@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import axios from 'axios';
-import quadrant from '../component/quadrant';
-import timeline from '../component/timeline';
-import statistics from '../component/statistics';
-import login from '../component/login';
+import quadrant from './quadrant';
+import timeline from './timeline';
+import statistics from './statistics';
+import login from './login';
 import { STORAGE_PREFIX } from '../config';
 
 Vue.use(Router);

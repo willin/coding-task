@@ -1,5 +1,5 @@
 <template>
-  <v-chip label small>
+  <v-chip label small :class="{pink: this.exceed, 'white--text': this.exceed}">
     {{timetogo}}
   </v-chip>
 </template>
@@ -12,6 +12,9 @@ export default {
     time: Number
   },
   computed: {
+    exceed() {
+      return new Date().getTime() > this.time;
+    },
     timetogo() {
       return moment(this.time).calendar(null, {
         sameDay: '[今天]',

@@ -11,10 +11,10 @@
             {{task.content}}
           </v-list-tile-title>
           <v-list-tile-sub-title>
-            <v-chip small>{{task.project.name}}</v-chip>
+            <v-chip small label>{{task.project.name}}</v-chip>
             <timetogo v-if="task.deadline" :time="task.deadline"></timetogo>
             <template v-for="label in task.labels">
-              <v-chip v-text="label.name" v-bind:style="{color: label.color, borderColor: label.color}" v-bind:key="label.id" label outline small></v-chip>
+              <v-chip v-text="label.name" v-bind:style="{color: label.color, borderColor: label.color}" v-bind:key="label.id" outline small></v-chip>
             </template>
           </v-list-tile-sub-title>
         </v-list-tile-content>

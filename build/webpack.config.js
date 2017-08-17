@@ -26,6 +26,7 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       public: path.resolve(__dirname, './public')
+      // moment: 'moment/src/moment.js'
     }
   },
   module: {

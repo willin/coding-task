@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from './moment';
 
 export default {
   props: {
@@ -19,9 +19,9 @@ export default {
       return moment(this.time).calendar(null, {
         sameDay: '[今天]',
         nextDay: '[明天]',
-        nextWeek: '[下]dddd',
+        nextWeek: '[下]ddd',
         lastDay: '[昨天]',
-        lastWeek: '[上]dddd',
+        lastWeek: '[上]ddd',
         sameElse: 'YYYY-MM-DD'
       });
     }

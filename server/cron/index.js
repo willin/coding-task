@@ -11,7 +11,7 @@ new CronJob('0 */10 * * * *', async () => {
 
 // 更新AccessToken 每隔2小时定时执行
 if (type === 'application') {
-  new CronJob('0 */10 * * * *', async () => {
+  new CronJob('0 10 */2 * * *', async () => {
     await refreshToken();
   }, null, true, 'Asia/Shanghai');
 }

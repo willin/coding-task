@@ -1,8 +1,14 @@
 <template>
   <div>
-    <h1>
-      Hello
-    </h1>
+    <v-toolbar>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat @click="goRoute('/statistics')">统计首页</v-btn>
+        <v-btn flat @click="goRoute('/statistics/team')">团队统计</v-btn>
+        <v-btn flat @click="goRoute('/statistics/project')">项目统计</v-btn>
+        <v-btn flat @click="goRoute('/statistics/user')">用户统计</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
     <component v-bind:is="currentView" :params="params"> </component>
   </div>
 </template>
@@ -38,7 +44,7 @@ export default {
           return;
         }
         params = params.split('/');
-        if (['team', 'project', 'user'].indexOf(params[0]) !== -1 && params.length > 1) {
+        if (['team', 'project', 'user'].indexOf(params[0]) !== -1) {
           this.currentView = params[0];
           this.params = params;
           return;
@@ -47,7 +53,18 @@ export default {
       }
     }
   },
+  methods: {
+    goRoute(route) {
+      this.$router.push(route);
+    }
+  },
   beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      // eslint-disable-next-line no-param-reassign
+      vm.view = to.params;
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
     next((vm) => {
       // eslint-disable-next-line no-param-reassign
       vm.view = to.params;

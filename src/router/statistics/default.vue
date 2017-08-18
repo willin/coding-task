@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vchart ratio="ct-major-second" :type="type" :data="data" :options="options"></vchart>
+    <vchart ratio="ct-major-second" :type="tasksPie.type" :data="tasksPie.data" :options="tasksPie.options"></vchart>
   </div>
 </template>
 
@@ -12,24 +12,31 @@ export default {
   components: {
     vchart
   },
-  data() {
-    return {
-      data: {
-        labels: ['周一', '周二', '周三', '周四', '周五'],
-        series: [[4, 3.8, 3, 5, 4.1]]
-      },
-      type: 'Line',
-      options: {
-        fullWidth: true,
-        lineSmooth: false
-      }
-    };
-  },
   computed: {
     ...mapGetters([
+      'tasks',
       'tasksDone',
       'tasksUndone'
-    ])
+    ]),
+    tasksPie() {
+      return {
+        data: {
+          labels: ['已完成', '未完成'],
+          series: [this.tasksDone.length, this.tasksUndone.length]
+        },
+        type: 'Pie',
+        options: {
+          fullWidth: true,
+          lineSmooth: false,
+          labelInterpolationFnc: val => val
+        }
+      };
+    }
+  },
+  data() {
+    return {
+
+    };
   }
 };
 </script>

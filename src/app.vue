@@ -14,7 +14,7 @@
       </v-btn>
     </v-toolbar>
     <main>
-      <router-view></router-view>
+      <router-view transition="slide-y-transition"></router-view>
     </main>
     <v-progress-linear value="45" height="10" info>
     </v-progress-linear>

@@ -20,19 +20,13 @@
         </p>
         <p class="timeline-date" v-else>&nbsp;</p>
         <div class="timeline-content">
-          <h6 v-if="task.status===2">
+          <h6>
             <span>
               <img v-bind:src=" task.owner.avatar.startsWith('/') ? `https://coding.net${task.owner.avatar}` : task.owner.avatar" />
             </span>
             <span class='grey--text text--darken-2'>{{ task.owner.name }} - </span>
-            <del>{{task.content}}</del>
-          </h6>
-          <h6 v-else>
-            <span>
-              <img v-bind:src=" task.owner.avatar.startsWith('/') ? `https://coding.net${task.owner.avatar}` : task.owner.avatar" />
-            </span>
-            <span class='grey--text text--darken-2'>{{ task.owner.name }} - </span>
-            {{task.content}}
+            <del v-if="task.status===2">{{task.content}}</del>
+            <span v-else>{{task.content}}</span>
           </h6>
           <p>
             <v-chip :class="priorityClass(task.priority)" class="white--text" small label>

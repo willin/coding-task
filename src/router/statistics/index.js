@@ -3,3 +3,5 @@ module.exports = (resolve) => {
     resolve(require('./statistics.vue'));
   }, 'statistics');
 };
+
+// module.exports = require('./statistics.vue');

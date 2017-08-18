@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     app: path.resolve(__dirname, '../src/main.js'),
-    common: ['vue', 'vuex', 'vue-router', 'vuetify', 'axios']
+    vendor: ['vue', 'vuex', 'vue-router', 'vuetify']
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -26,8 +26,12 @@ module.exports = {
     extensions: ['.js', '.vue', '.json', '.css'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      public: path.resolve(__dirname, './public')
-      // moment: 'moment/src/moment.js'
+      public: path.resolve(__dirname, './public'),
+      // moment: 'moment/src/moment.js',
+      echarts$: 'echarts/src/echarts.js',
+      echarts: 'echarts/src',
+      zrender$: 'zrender/src/zrender.js',
+      zrender: 'zrender/src'
     }
   },
   module: {
@@ -82,7 +86,8 @@ module.exports = {
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
-      filename: 'common.js'
+      filename: 'common.js',
+      minSize: 10240
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({

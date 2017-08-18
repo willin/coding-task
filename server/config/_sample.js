@@ -2,7 +2,7 @@ const defaults = {
   // 可选参数: 
   // application 使用Oauth 2.0方式拉取数据
   // token 使用访问令牌方式方式拉取数据
-  type: 'application',
+  type: 'token',
   // 通过指定管理员进行数据拉取, 或者使用哪个用户名进行访问令牌生成
   // 管理员需要参与所有需要统计的团队及项目
   admin: 'willin'

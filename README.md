@@ -113,6 +113,20 @@ const sync = require('./server/cron/sync');
 })();
 ```
 
+### 打包及产品化
+
+创建产品环境配置文件:
+
+```
+./src/config/_production.js
+```
+
+```bash
+yarn build
+# or
+npm run build
+```
+
 ### 路由设计
 
 ```bash

@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -51,6 +52,7 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
+          // name: '[path][name].[ext]',
           objectAssign: 'Object.assign'
         }
       },
@@ -100,6 +102,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/index.html')
     }),
+    new CopyWebpackPlugin([
+      { from: 'public', to: 'public' }
+    ]),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',

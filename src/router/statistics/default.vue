@@ -10,6 +10,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+/* eslint-disable import/no-unresolved,import/extensions */
 import 'echarts/chart/pie';
 import 'echarts/chart/bar';
 import 'echarts/component/polar';

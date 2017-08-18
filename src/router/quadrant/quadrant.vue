@@ -69,16 +69,16 @@ export default {
       'tasksUndone'
     ]),
     tasksp3() {
-      return this.tasksUndone.where({ priority: 3 }).page({ page: 1, per: 50 });
+      return this.tasksUndone.where({ priority: 3 });
     },
     tasksp2() {
-      return this.tasksUndone.where({ priority: 2 }).page({ page: 1 });
+      return this.tasksUndone.where({ priority: 2 });
     },
     tasksp1() {
-      return this.tasksUndone.where({ priority: 1 }).page({ page: 1 });
+      return this.tasksUndone.where({ priority: 1 });
     },
     tasksp0() {
-      return this.tasksUndone.where({ priority: 0 }).page({ page: 1 });
+      return this.tasksUndone.where({ priority: 0 });
     }
   }
 };

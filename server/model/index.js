@@ -8,7 +8,8 @@ const sequelize = new Sequelize(database, user, password, {
     paranoid: true,
     underscored: true,
     timestamps: false
-  }
+  },
+  logging: process.env.NODE_ENV === 'development' ? console.log : false
 });
 
 const User = sequelize.import('./tables/user');

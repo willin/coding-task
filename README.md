@@ -44,7 +44,7 @@
 
 - [x] 数组筛选方法
 - [x] Webpack打包优化
-- [ ] 任务按时间排序
+- [x] 任务按时间排序
 - [x] 筛选路由匹配 
 
 ## 前端
@@ -75,12 +75,15 @@
 ├── server # 服务器端项目目录 (参考下面服务器端的具体目录结构)
 └── src # 前端源码目录
     ├── app.vue # layout
-    ├── component # 页面/组件目录
-    │   ├── quadrant # 四象限及组件
-    │   ├── statistics # 统计及组件
-    │   └── timeline # 时间轴及组件
+    ├── component # 组件目录
+    │   ├── timetogo.vue # 时间显示组件
+    │   ├── moment # moment 组件
+    │   └── ... # 其它组件
     ├── main.js # 入口文件
     ├── router # 路由
+    │   ├── quadrant # 四象限路由
+    │   ├── statistics # 统计路由
+    │   └── timeline # 时间轴路由
     └── store # Vuex状态管理
 ```
 

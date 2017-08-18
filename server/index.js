@@ -1,5 +1,5 @@
 const app = require('./server');
 const { server } = require('./config');
 
-app.listen(server);
+app.listen(process.env.PORT || server);
 console.log(new Date());

@@ -8,7 +8,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
   entry: {
     app: path.resolve(__dirname, '../src/main.js'),
-    vendor: ['vue', 'vuex', 'vue-router', 'vuetify', 'axios']
+    common: ['vue', 'vuex', 'vue-router', 'vuetify', 'axios']
   },
   output: {
     path: path.resolve(__dirname, '../dist'),

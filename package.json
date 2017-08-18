@@ -10,7 +10,7 @@
   },
   "repository": "git@github.com:AirDwing/vuetify-demo.git",
   "author": "willin <willin@willin.org>",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",

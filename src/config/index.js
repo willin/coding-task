@@ -1,5 +1,3 @@
-export const CODING_CALLBACK = 'http://localhost:3993/api/coding/callback';
-
-export const CODING_CLIENTID = 'e37d1b82f2f98129a12f4b751236aec4';
-
-export const STORAGE_PREFIX = 'tasks';
+const ENV = process.env.NODE_ENV || 'development';
+// eslint-disable-next-line import/no-dynamic-require
+module.exports = require(`./_${ENV}`);

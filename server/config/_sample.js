@@ -12,7 +12,7 @@ exports.defaults = defaults;
 // 用于 Coding 用户登录
 // 创建应用: https://coding.net/user/account/setting/applications
 exports.clientId = '613677f36f6961ef1ddc39714d51b7b2'; // Coding 应用的 ID
-exports.clientSecret = '69c901e3c1b6e35bc145428e4a10c3bc1a301a45'; // Coding 应用的Secret
+exports.clientSecret = new Buffer('NjljOTAxZTNjMWI2ZTM1YmMxNDU0MjhlNGExMGMzYmMxYTMwMWE0NQ==', 'base64').toString(); // Coding 应用的Secret
 
 // 需要统计分析的团队列表, 及允许下列团队用户成员进行登录
 exports.teams = [

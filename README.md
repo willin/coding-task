@@ -96,6 +96,22 @@ yarn dev
 # 或 npm run dev
 ```
 
+#### 注意事项
+
+默认配置中给了一个测试应用的全部信息, 这些是不能修改的.
+
+```js
+{
+  'Client ID': '613677f36f6961ef1ddc39714d51b7b2',
+  'Client Secret': new Buffer('NjljOTAxZTNjMWI2ZTM1YmMxNDU0MjhlNGExMGMzYmMxYTMwMWE0NQ==', 'base64').toString(),
+  'Callback URL': 'http://localhost:3993/api/coding/callback'
+}
+```
+
+可以创建一个自己的应用,然后就可以任意修改配置文件了. 创建应用的地址: <https://coding.net/user/account/setting/applications>
+
+---
+
 带服务器端的真实环境测试:
 
 ```bash

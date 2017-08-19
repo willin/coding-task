@@ -2,7 +2,7 @@ const defaults = {
   // 可选参数: 
   // application 使用Oauth 2.0方式拉取数据
   // token 使用访问令牌方式方式拉取数据
-  type: 'token',
+  type: 'application',
   // 通过指定管理员进行数据拉取, 或者使用哪个用户名进行访问令牌生成
   // 管理员需要参与所有需要统计的团队及项目
   admin: 'willin'
@@ -11,8 +11,8 @@ exports.defaults = defaults;
 
 // 用于 Coding 用户登录
 // 创建应用: https://coding.net/user/account/setting/applications
-exports.clientId = ''; // Coding 应用的 ID
-exports.clientSecret = ''; // Coding 应用的Secret
+exports.clientId = '613677f36f6961ef1ddc39714d51b7b2'; // Coding 应用的 ID
+exports.clientSecret = '69c901e3c1b6e35bc145428e4a10c3bc1a301a45'; // Coding 应用的Secret
 
 // 需要统计分析的团队列表, 及允许下列团队用户成员进行登录
 exports.teams = [
@@ -39,13 +39,18 @@ exports.mysql = {
   password: 'root'
 };
 
-// Redis配置
-// 如果系统类型未选择 使用访问令牌方式方式拉取数据, 可以留默认值不填
-// 如果选择Oauth 2.0方式拉取数据, 需要安装 Redis 服务
-exports.redis = {
-  host: '127.0.0.1',
-  port: 6379,
-  db: 0,
-  ttl: 3600,
-  prefix: 'tasks:'
+// 配置存储
+exports.storage = {
+  type: 'memory' // 支持: memory (内存) / redis
 };
+// Redis 配置参考:
+// exports.storage = {
+//   type: 'redis',
+//   redis: {
+//     host: '127.0.0.1',
+//     port: 6379,
+//     db: 0,
+//     ttl: 3600,
+//     prefix: 'tasks:'
+//   }
+// };

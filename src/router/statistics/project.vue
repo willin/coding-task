@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <template v-for="project in projects">
-      <v-flex xs12 :key="project.id">
+      <v-flex xs6 :key="project.id">
         <v-card>
           <v-card-title class="primary white--text">{{ project.name }}</v-card-title>
           <v-card-text>

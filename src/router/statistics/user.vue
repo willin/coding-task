@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <template v-for="user in users">
-      <v-flex xs12 :key="user.id">
+      <v-flex xs6 :key="user.id">
         <v-card>
           <v-card-title class="primary white--text">
             {{ user.name }}

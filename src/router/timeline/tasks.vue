@@ -25,8 +25,10 @@
               <img v-bind:src=" task.owner.avatar.startsWith('/') ? `https://coding.net${task.owner.avatar}` : task.owner.avatar" />
             </span>
             <span class='grey--text text--darken-2'>{{ task.owner.name }} - </span>
-            <del v-if="task.status===2">{{task.content}}</del>
-            <span v-else>{{task.content}}</span>
+            <a :href="'https://coding.net/' + task.project.project_path + '/task/' + task.id " target="_blank">
+              <del v-if="task.status===2">{{task.content}}</del>
+              <span v-else>{{task.content}}</span>
+            </a>
           </h6>
           <p>
             <v-chip :class="priorityClass(task.priority)" class="white--text" small label>
@@ -112,6 +114,9 @@ export default {
 
 
 <<style lang="stylus" scoped>
+a {
+  text-decoration: none;
+}
 .timeline {
   list-style: none;
   margin-top: 1em;

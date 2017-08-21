@@ -8,7 +8,9 @@
         <v-list-tile-content>
           <v-list-tile-title>
             <span class='grey--text text--darken-2'>{{task.owner.name}} - </span>
-            {{task.content}}
+            <a :href="'https://coding.net/' + task.project.project_path + '/task/' + task.id " target="_blank">
+              {{task.content}}
+            </a>
           </v-list-tile-title>
           <v-list-tile-sub-title>
             <v-chip small label>{{task.project.name}}</v-chip>
@@ -62,3 +64,8 @@ export default {
   }
 };
 </script>
+
+<<style lang="stylus" scoped>
+a
+  text-decoration none
+</style>

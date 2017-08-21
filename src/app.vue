@@ -83,6 +83,10 @@ export default {
 main
   padding-bottom 10px
 
+html
+  overflow-x hidden
+  overflow-y auto
+
 .coding
   font-family Coding
   &:before

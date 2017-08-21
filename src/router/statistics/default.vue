@@ -1,21 +1,28 @@
 
 <template>
-  <div>
-    <h3>任务统计</h3>
-    <chart :options="tasks"></chart>
-    <h3>任务详情统计</h3>
-    <chart :options="details"></chart>
-  </div>
+  <v-layout row-sm column child-flex-sm>
+    <v-card class="ma-1">
+      <v-card-title primary-title>任务统计</v-card-title>
+      <v-card-text>
+        <chart :options="tasks"></chart>
+      </v-card-text>
+    </v-card>
+    <v-card class="ma-1">
+      <v-card-title primary-title>任务详情统计</v-card-title>
+      <v-card-text>
+        <chart :options="details"></chart>
+      </v-card-text>
+    </v-card>
+  </v-layout>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-/* eslint-disable import/no-unresolved,import/extensions */
-import 'echarts/chart/pie';
-import 'echarts/chart/bar';
-import 'echarts/component/polar';
-import 'echarts/component/tooltip';
-import 'echarts/component/title';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/component/polar';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 import chart from '../../component/chart';
 
 export default {

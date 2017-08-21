@@ -29,7 +29,7 @@ module.exports = {
       public: path.resolve(__dirname, './public'),
       // moment: 'moment/src/moment.js',
       echarts$: 'echarts/src/echarts.js',
-      echarts: 'echarts/src',
+      'echarts/lib': 'echarts/src',
       zrender$: 'zrender/src/zrender.js',
       zrender: 'zrender/src'
     }

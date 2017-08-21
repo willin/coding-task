@@ -3,7 +3,11 @@
     <template v-for="user in users">
       <v-flex xs12 :key="user.id">
         <v-card>
-          <v-card-title class="primary white--text">{{ user.name }}</v-card-title>
+          <v-card-title class="primary white--text">
+            {{ user.name }}
+            <v-card-sub-title v-if="user.slogan">&nbsp; - {{ user.slogan }}</v-card-sub-title>
+          </v-card-title>
+
           <v-card-text>
             <ul>
               <li>

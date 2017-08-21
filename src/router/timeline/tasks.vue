@@ -33,6 +33,12 @@
               {{ displayPriority(task.priority) }}
             </v-chip>
             <v-chip small label>{{task.project.name}} #{{task.number}}</v-chip>
+            <v-chip small label v-if="task.has_description || task.comments">
+              <v-icon v-if="task.has_description">info_outline</v-icon>
+              <span v-if="task.has_description">有描述 &nbsp;</span>
+              <v-icon v-if="task.comments">chat_bubble_outline</v-icon>
+              <span v-if="task.comments">{{task.comments}}</span>
+            </v-chip>
             <template v-for="label in task.labels">
               <v-chip v-text="label.name" v-bind:style="{color: label.color, borderColor: label.color}" v-bind:key="label.id" outline small></v-chip>
             </template>

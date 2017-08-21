@@ -66,6 +66,7 @@ const getters = {
   users: state => state.user,
   projects: state => state.project,
   labels: state => state.label,
+  teams: state => state.team,
   tasklabels: state => state.tasklabels
 };
 

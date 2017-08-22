@@ -4,6 +4,9 @@ const mutations = {
     Object.keys(data).forEach((key) => {
       state[key] = data[key];
     });
+  },
+  progress(state, progress) {
+    state.progress = progress;
   }
 };
 

@@ -4,7 +4,8 @@ const state = {
   project: [],
   label: [],
   task: [],
-  tasklabels: []
+  tasklabels: [],
+  progress: 0
 };
 
 export default state;

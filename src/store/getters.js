@@ -67,7 +67,8 @@ const getters = {
   projects: state => state.project,
   labels: state => state.label,
   teams: state => state.team,
-  tasklabels: state => state.tasklabels
+  tasklabels: state => state.tasklabels,
+  progress: state => state.progress
 };
 
 export default getters;

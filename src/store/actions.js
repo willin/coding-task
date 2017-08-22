@@ -18,6 +18,9 @@ const actions = {
     await dispatch('fetch', 'label');
     await dispatch('fetch', 'task');
     await dispatch('fetch', 'tasklabels');
+  },
+  setProgress({ commit }, progress) {
+    commit('progress', progress);
   }
 };
 

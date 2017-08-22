@@ -14,15 +14,17 @@
       </v-btn>
     </v-toolbar>
     <main>
-      <router-view transition="slide-y-transition"></router-view>
+      <transition name="slide-fade">
+        <router-view></router-view>
+      </transition>
     </main>
-    <v-progress-linear value="45" height="10" info>
+    <v-progress-linear :value="progress" height="10" info>
     </v-progress-linear>
   </v-app>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -32,6 +34,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters([
+      'progress'
+    ]),
     show() {
       const show = this.$route.path !== '/login';
       return {
@@ -48,7 +53,8 @@ export default {
       this.$router.push(route);
     },
     ...mapActions({
-      fetch: 'getAllData'
+      fetch: 'getAllData',
+      setProgress: 'setProgress'
     })
   },
   watch: {
@@ -60,6 +66,9 @@ export default {
     if (this.$route.path !== '/login' && this.inited === false) {
       this.init();
     }
+  },
+  mounted() {
+    this.setProgress(100);
   }
 };
 </script>
@@ -93,4 +102,16 @@ html
     content: '\c612'
   &.important:before
     content: '\c611'
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>

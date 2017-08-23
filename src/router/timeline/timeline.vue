@@ -2,8 +2,18 @@
   <div>
     <v-container>
       <tasks :list="filter()"></tasks>
+      <v-btn @click.stop="drawer = !drawer" class="pink" dark small fixed top right fab style="z-index:99999;top: 20em" v-if="!drawer">
+        <v-icon>menu</v-icon>
+      </v-btn>
     </v-container>
-    <v-navigation-drawer class="grey lighten-4 pb-0" permanent fixed height="100%" light clipped right>
+    <v-navigation-drawer v-model="drawer" class="grey lighten-4 pb-0" fixed light right clipped enable-resize-watcher persistent>
+      <v-toolbar>
+        <v-toolbar-title>
+          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-text-field label="搜索..." single-line append-icon="search" hide-details v-model="search"></v-text-field>
+      </v-toolbar>
       <v-card>
         <v-switch label="显示已完成" v-model="showDone"></v-switch>
       </v-card>
@@ -27,6 +37,8 @@ import tasks from './tasks.vue';
 export default {
   data() {
     return {
+      drawer: false,
+      search: '',
       showDone: true,
       selectedOwners: [],
       selectedCreator: 0,
@@ -59,6 +71,9 @@ export default {
       }
       if (this.selectedPriority !== -1) {
         result = result.filter(x => this.selectedPriority === x.priority);
+      }
+      if (this.search.length !== 0) {
+        result = result.filter(x => x.content.includes(this.search.trim()));
       }
       return result;
     }

@@ -26,6 +26,10 @@ if (process.env.API_ENV === 'real') {
 
 module.exports = Object.assign({}, config, {
   devServer,
+  output: {
+    filename: '[name].js',
+    publicPath: '/'
+  },
   performance: {
     hints: false
   },

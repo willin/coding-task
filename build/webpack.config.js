@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -13,8 +14,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
     publicPath: '/'
   },
   devtool: '#source-map',
@@ -73,6 +74,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '../')
+    }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
@@ -84,9 +88,17 @@ module.exports = {
     //   }
     // }),
     new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'common.js',
+      name: 'vendor',
+      minChunks(module) {
+        // This prevents stylesheet resources with the .css or .scss extension
+        // from being moved from their original chunk to the vendor chunk
+        if (module.resource && (/^.*\.(css|scss)$/).test(module.resource)) {
+          return false;
+        }
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      },
       minSize: 10240
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -100,7 +112,7 @@ module.exports = {
         drop_console: false
       }
     }),
-    new ExtractTextPlugin('[name].css', {
+    new ExtractTextPlugin('[name].[chunkhash].css', {
       disable: false,
       allChunks: true
     }),

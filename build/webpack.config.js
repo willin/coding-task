@@ -14,8 +14,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[hash].js',
     publicPath: '/'
   },
   devtool: '#source-map',
@@ -112,7 +112,7 @@ module.exports = {
         drop_console: false
       }
     }),
-    new ExtractTextPlugin('[name].[chunkhash].css', {
+    new ExtractTextPlugin('[name].[hash].css', {
       disable: false,
       allChunks: true
     }),

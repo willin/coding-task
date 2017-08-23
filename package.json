@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config build/webpack.dev.js --open --hot",
     "start": "API_ENV=real webpack-dev-server --config build/webpack.dev.js --open --hot & node server",
-    "clean": "rm -rf dist",
-    "build": "yarn clean && yarn production",
+    "build": "NODE_ENV=production webpack --config build/webpack.config.js --progress --hide-modules",
     "analyze": "NODE_ENV=production webpack --config build/webpack.analyze.js --progress --hide-modules"
   },
   "repository": "git@github.com:AirDwing/vuetify-demo.git",

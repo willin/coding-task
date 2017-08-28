@@ -3,13 +3,6 @@
   </div>
 </template>
 
-<style>
-.echarts {
-  width: 600px;
-  height: 400px;
-}
-</style>
-
 <script>
 import echarts from 'echarts';
 import Vue from 'vue';
@@ -228,3 +221,9 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus">
+.echarts
+  width 100%
+  height 400px
+</style>

@@ -6,32 +6,6 @@
           <v-card-title class="primary white--text">{{ project.name }}</v-card-title>
           <v-card-text>
             <chart :options="projectTask(project)"></chart>
-            <!--<ul>
-              <li>
-                任务数: {{ tasks.filter(x=>x.project_id === project.id).length }}
-              </li>
-              <li>
-                已完成任务数: {{ tasks.filter(x=>x.project_id === project.id && x.status === 2).length }}
-              </li>
-              <li>
-                未完成任务数: {{ tasks.filter(x=>x.project_id === project.id && x.status === 1).length }}
-              </li>
-              <li>
-                剩余重要且紧急任务: {{ tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 3).length }}
-              </li>
-              <li>
-                剩余重要不紧急任务: {{ tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 2).length }}
-              </li>
-              <li>
-                剩余紧急不重要任务: {{ tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 1).length }}
-              </li>
-              <li>
-                剩余不紧急不重要任务: {{ tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 0).length }}
-              </li>
-              <li>
-                标签数: {{ labels.filter(x=>x.project_id === project.id).length }}
-              </li>
-            </ul>-->
           </v-card-text>
         </v-card>
       </v-flex>
@@ -39,177 +13,172 @@
   </v-layout>
 </template>
 
-<style>
-    .echarts {
-        width: 100%!important;
-    }
-</style>
-
 <script>
 import { mapGetters } from 'vuex';
 import 'echarts/lib/chart/graph';
 
 import chart from '../../component/chart';
+
 export default {
   props: ['params'],
   components: {
-        chart
+    chart
   },
   data() {
     return {
     };
   },
-  methods:{
-        projectTask(project){
-            return {
-                title: {
-                    show: false
-                },
-                tooltip: {
-                    show: false
-                },
-                silent: true,
-                animationDurationUpdate: 1500,
-                animationEasingUpdate: 'quinticInOut',
-                series: [
-                    {
-                        type: 'graph',
-                        layout: 'none',
-                        legendHoverLink: false,
-                        symbolSize: 100,
-                        roam: false,
-                        label: {
-                            normal: {
-                                show: true,
-                                fontSize: 12
-                            }
-                        },
-                        edgeSymbol: ['none', 'none'],
-                        edgeSymbolSize: [4, 10],
-                        data: [
-                            {
-                                name: `标签数\n${this.labels.filter(x=>x.project_id === project.id).length}`,
-                                x: 0,
-                                y: 300,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#42a5f5'
-                                    }
-                                }
-                            },
-                            {
-                                name: `任务数\n${this.tasks.filter(x=>x.project_id === project.id).length}`,
-                                x:200,
-                                y: 300,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#ff5c1b'
-                                    }
-                                }
-                            },
-                            {
-                                name: `已完成任务数\n${this.tasks.filter(x=>x.project_id === project.id && x.status === 2).length}`,
-                                x: 350,
-                                y: 200,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#25cc3d'
-                                    }
-                                }
-                            },
-                            {
-                                name: `未完成任务数\n${this.tasks.filter(x=>x.project_id === project.id && x.status === 1).length }`,
-                                x: 420,
-                                y: 340,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#ff8786'
-                                    }
-                                }
-                            },
-                            {
-                                name: `重要且紧急任务\n${this.tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 3).length}`,
-                                x: 540,
-                                y: 230,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#ff0f07'
-                                    }
-                                }
-                            },
-                            {
-                                name: `重要不紧急任务\n${this.tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 2).length }`,
-                                x: 640,
-                                y: 310,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#f540ed'
-                                    }
-                                }
-                            },
-                            {
-                                name: `紧急不重要任务\n${this.tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 1).length }`,
-                                x: 650,
-                                y: 430,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#fb3ca3'
-                                    }
-                                }
-                            },
-                            {
-                                name: `不紧急不重要任务\n${this.tasks.filter(x=>x.project_id === project.id && x.status === 1 && x.priority === 0).length}`,
-                                x: 540,
-                                y: 500,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#aba3e1'
-                                    }
-                                }
-                            }
-                        ],
-                        links: [
-                            {
-                                source: 0,
-                                target: 1
-                            },
-                            {
-                                source: 1,
-                                target: 2
-                            },
-                            {
-                                source: 1,
-                                target: 3
-                            },
-                            {
-                                source: 3,
-                                target: 4
-                            },
-                            {
-                                source: 3,
-                                target: 5
-                            },
-                            {
-                                source: 3,
-                                target: 6
-                            },
-                            {
-                                source: 3,
-                                target: 7
-                            }
-                        ],
-                        lineStyle: {
-                            normal: {
-                                opacity: 0.9,
-                                width: 2,
-                                curveness: 0
-                            }
-                        }
-                    }
-                ]
+  methods: {
+    projectTask(project) {
+      return {
+        title: {
+          show: false
+        },
+        tooltip: {
+          show: false
+        },
+        silent: true,
+        animationDurationUpdate: 1500,
+        animationEasingUpdate: 'quinticInOut',
+        series: [
+          {
+            type: 'graph',
+            layout: 'none',
+            legendHoverLink: false,
+            symbolSize: 100,
+            roam: false,
+            label: {
+              normal: {
+                show: true,
+                fontSize: 12
+              }
+            },
+            edgeSymbol: ['none', 'none'],
+            edgeSymbolSize: [4, 10],
+            data: [
+              {
+                name: `标签数\n${this.labels.filter(x => x.project_id === project.id).length}`,
+                x: 0,
+                y: 300,
+                itemStyle: {
+                  normal: {
+                    color: '#42a5f5'
+                  }
+                }
+              },
+              {
+                name: `任务数\n${this.tasks.filter(x => x.project_id === project.id).length}`,
+                x: 200,
+                y: 300,
+                itemStyle: {
+                  normal: {
+                    color: '#ff5c1b'
+                  }
+                }
+              },
+              {
+                name: `已完成任务数\n${this.tasks.filter(x => x.project_id === project.id && x.status === 2).length}`,
+                x: 350,
+                y: 200,
+                itemStyle: {
+                  normal: {
+                    color: '#25cc3d'
+                  }
+                }
+              },
+              {
+                name: `未完成任务数\n${this.tasks.filter(x => x.project_id === project.id && x.status === 1).length}`,
+                x: 420,
+                y: 340,
+                itemStyle: {
+                  normal: {
+                    color: '#ff8786'
+                  }
+                }
+              },
+              {
+                name: `重要且紧急任务\n${this.tasks.filter(x => x.project_id === project.id && x.status === 1 && x.priority === 3).length}`,
+                x: 540,
+                y: 230,
+                itemStyle: {
+                  normal: {
+                    color: '#ff0f07'
+                  }
+                }
+              },
+              {
+                name: `重要不紧急任务\n${this.tasks.filter(x => x.project_id === project.id && x.status === 1 && x.priority === 2).length}`,
+                x: 640,
+                y: 310,
+                itemStyle: {
+                  normal: {
+                    color: '#f540ed'
+                  }
+                }
+              },
+              {
+                name: `紧急不重要任务\n${this.tasks.filter(x => x.project_id === project.id && x.status === 1 && x.priority === 1).length}`,
+                x: 650,
+                y: 430,
+                itemStyle: {
+                  normal: {
+                    color: '#fb3ca3'
+                  }
+                }
+              },
+              {
+                name: `不紧急不重要任务\n${this.tasks.filter(x => x.project_id === project.id && x.status === 1 && x.priority === 0).length}`,
+                x: 540,
+                y: 500,
+                itemStyle: {
+                  normal: {
+                    color: '#aba3e1'
+                  }
+                }
+              }
+            ],
+            links: [
+              {
+                source: 0,
+                target: 1
+              },
+              {
+                source: 1,
+                target: 2
+              },
+              {
+                source: 1,
+                target: 3
+              },
+              {
+                source: 3,
+                target: 4
+              },
+              {
+                source: 3,
+                target: 5
+              },
+              {
+                source: 3,
+                target: 6
+              },
+              {
+                source: 3,
+                target: 7
+              }
+            ],
+            lineStyle: {
+              normal: {
+                opacity: 0.9,
+                width: 2,
+                curveness: 0
+              }
             }
-        }
-    },
+          }
+        ]
+      };
+    }
+  },
   computed: {
     ...mapGetters([
       'projects',

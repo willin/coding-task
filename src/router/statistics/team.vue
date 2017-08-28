@@ -132,7 +132,7 @@
                                     y: 150,
                                     itemStyle: {
                                         normal: {
-                                            color: '#00d937'
+                                            color: '#25cc3d'
                                         }
                                     }
                                 },

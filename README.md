@@ -92,6 +92,10 @@
 ```bash
 yarn
 # 或 npm i
+cd server/
+yarn 
+# 或 npm i
+cd ..
 yarn dev
 # 或 npm run dev
 ```

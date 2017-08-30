@@ -19,7 +19,7 @@ exports.clientSecret = new Buffer('NjljOTAxZTNjMWI2ZTM1YmMxNDU0MjhlNGExMGMzYmMxY
 // 消息推送机器人
 // 如果设置, 将每工作日推送当天未完成的任务
 exports.notification = {
-  type: false, // 目前只支持钉钉, 取消推送此处填 false (不带引号)
+  type: false, // 目前只支持钉钉('dingbot'), 取消推送此处填 false (不带引号)
   url: 'https://oapi.dingtalk.com/robot/send?access_token=xxxxxx'
 };
 

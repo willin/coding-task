@@ -10,7 +10,8 @@ exports.dailyNotice = async () => {
       deadline: {
         $gt: moment().startOf('day').valueOf(),
         $lt: moment().endOf('day').valueOf()
-      }
+      },
+      status: 1
     }
   });
   const users = await User.findAll({

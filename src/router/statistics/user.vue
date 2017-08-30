@@ -37,13 +37,8 @@ import chart from '../../component/chart';
     },
     data() {
       return {
-        seriesLable: {
-          formatter: '{a}: {c}',
-          show: true,
-          position: 'inside'
-        },
         yAxisData: [],
-        seriesData: [[], [], []]
+        seriesData: [[], []]
       };
     },
     created: function () {
@@ -52,7 +47,6 @@ import chart from '../../component/chart';
         this.seriesData[0].push(this.tasks.filter(x => x.owner_id === this.users[i].id && x.status === 1).length); //未完成
         this.seriesData[1].push(this.tasks.filter(x => x.owner_id === this.users[i].id && x.status === 2).length); //已完成
       }
-      console.log(this.seriesData);
     },
     methods: {
       userTask(user) {

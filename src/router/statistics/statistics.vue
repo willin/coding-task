@@ -17,7 +17,9 @@
         </router-link>
       </v-toolbar-items>
     </v-toolbar>
-    <router-view></router-view>
+    <transition name="slide-fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 

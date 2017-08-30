@@ -3,15 +3,19 @@
     <v-toolbar :show="show" v-if="show.header" fixed>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="goRoute('/quadrant')">
-        <v-icon>pages</v-icon>
-      </v-btn>
-      <v-btn icon @click="goRoute('/timeline')">
-        <v-icon>format_list_numbered</v-icon>
-      </v-btn>
-      <v-btn icon @click="goRoute('/statistics')">
-        <v-icon>poll</v-icon>
-      </v-btn>
+
+      <router-link to="/">
+        <v-btn icon><v-icon>pages</v-icon></v-btn>
+      </router-link>
+
+      <router-link to="/timeline">
+        <v-btn icon><v-icon>format_list_numbered</v-icon></v-btn>
+      </router-link>
+
+      <router-link to="/statistics">
+        <v-btn icon><v-icon>poll</v-icon></v-btn>
+      </router-link>
+
     </v-toolbar>
     <main>
       <transition name="slide-fade">
@@ -74,6 +78,11 @@ export default {
 </script>
 
 <style lang="stylus">
+a{
+  color transparent
+  text-decoration none
+}
+
 @import '../node_modules/vuetify/src/stylus/main'
 
 @font-face

@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const Router = require('koa-router');
-const { model: { User, Team, Project, Task, Label, TaskLabels } } = require('../server/model');
+const { model: { User, Team, Project, Task, Label, TaskLabels } } = require('./model');
 const { getAccessToken, getCurrentUser, getTeams } = require('./lib/api');
 const { defaults: { admin }, teams } = require('./config');
 const redis = require('./lib/redis');

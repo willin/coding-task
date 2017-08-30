@@ -1,5 +1,5 @@
 const defaults = {
-  // 可选参数: 
+  // 可选参数:
   // application 使用Oauth 2.0方式拉取数据
   // token 使用访问令牌方式方式拉取数据
   type: 'application',
@@ -11,8 +11,17 @@ exports.defaults = defaults;
 
 // 用于 Coding 用户登录
 // 创建应用: https://coding.net/user/account/setting/applications
-exports.clientId = '613677f36f6961ef1ddc39714d51b7b2'; // Coding 应用的 ID
-exports.clientSecret = new Buffer('NjljOTAxZTNjMWI2ZTM1YmMxNDU0MjhlNGExMGMzYmMxYTMwMWE0NQ==', 'base64').toString(); // Coding 应用的Secret
+// Coding 应用的 ID
+exports.clientId = '613677f36f6961ef1ddc39714d51b7b2';
+// Coding 应用的Secret
+exports.clientSecret = new Buffer('NjljOTAxZTNjMWI2ZTM1YmMxNDU0MjhlNGExMGMzYmMxYTMwMWE0NQ==', 'base64').toString();
+
+// 消息推送机器人
+// 如果设置, 将每工作日推送当天未完成的任务
+exports.notification = {
+  type: false, // 目前只支持钉钉, 取消推送此处填 false (不带引号)
+  url: 'https://oapi.dingtalk.com/robot/send?access_token=xxxxxx'
+};
 
 // 需要统计分析的团队列表, 及允许下列团队用户成员进行登录
 exports.teams = [

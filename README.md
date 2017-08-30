@@ -93,8 +93,10 @@
 yarn
 # 或 npm i
 cd server/
-yarn 
+yarn
 # 或 npm i
+# 创建配置文件
+cp config/_sample.js config/_development.js
 cd ..
 yarn dev
 # 或 npm run dev

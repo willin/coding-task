@@ -1,5 +1,12 @@
 <template>
   <v-layout row wrap>
+    <v-flex xs12>
+    <v-card>
+      <v-card-text>
+        <chart :options="allUserTask()"></chart>
+      </v-card-text>
+    </v-card>
+    </v-flex>
     <template v-for="user in users">
       <v-flex xs6 :key="user.id">
         <v-card>
@@ -29,7 +36,23 @@ export default {
   },
   data() {
     return {
+      seriesLable : {
+        formatter: '{a}: {c}',
+        show: true,
+        position: 'inside'
+      },
+      yAxisData : [],
+      seriesData : [ [], [], [] ]
     };
+  },
+  created:function () {
+    for (let i in this.users){
+      this.yAxisData.push(this.users[i].name);
+      this.seriesData[0].push(this.tasks.filter(x => x.owner_id === this.users[i].id && x.status === 1).length);
+      this.seriesData[1].push(this.tasks.filter(x => x.owner_id === this.users[i].id && x.status === 2).length);
+      this.seriesData[2].push(this.tasks.filter(x => x.owner_id === this.users[i].id).length);
+    }
+    console.log(this.seriesData);
   },
   methods: {
     userTask(user) {
@@ -177,6 +200,90 @@ export default {
                 curveness: 0
               }
             }
+          }
+        ]
+      };
+    },
+    allUserTask(){
+      return {
+        tooltip : {
+          show:false,
+          trigger: 'axis',
+          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        legend: {
+          show:false,
+        },
+        grid: {
+          left: '3%',
+          right: '3%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis:  {
+          type: 'value',
+          axisLine:{
+            lineStyle:{
+              color:'#8e8e8e'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          axisLine:{
+            lineStyle:{
+              color:'#8e8e8e'
+            }
+          },
+          axisTick:{
+            show:false
+          },
+          data: this.yAxisData
+        },
+        series: [
+          {
+            name: '未完成',
+            type: 'bar',
+            stack: '任务',
+            itemStyle:{
+              normal:{
+                color: '#CC3333'
+              }
+            },
+            label: {
+              normal: this.seriesLable
+            },
+            data: this.seriesData[0]
+          },
+          {
+            name: '已完成',
+            type: 'bar',
+            stack: '任务',
+            itemStyle: {
+              normal: {
+                color: '#00CC99'
+              }
+            },
+            label: {
+              normal: this.seriesLable
+            },
+            data: this.seriesData[1]
+          },
+          {
+            name: '已分配',
+            type: 'bar',
+            stack: '任务',
+            itemStyle: {
+              normal: {
+                color: '#0099CC'
+              }
+            },
+            label: {
+              normal: this.seriesLable
+            },
+            data: this.seriesData[2]
           }
         ]
       };

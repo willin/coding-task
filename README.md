@@ -1,6 +1,7 @@
 # coding-task Coding任务管理系统
 
-[![github](https://img.shields.io/github/followers/willin.svg?style=social&label=Follow)](https://github.com/willin)
+[![github](https://img.shields.io/github/followers/willin.svg?style=social&label=Follow)](https://github.com/willin) [![codebeat badge](https://codebeat.co/badges/701c238c-740d-418d-8474-ffa60c0ec201)](https://codebeat.co/projects/github-com-airdwing-coding-task-master)
+
 
 前端基于Vue/Vuex/Vuetify,通过Mockjs模拟测试数据,后端基于Sequelize/Koa的Coding团队任务管理系统. 一个完全前后端分离的完整项目演示.
 

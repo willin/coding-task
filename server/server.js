@@ -3,10 +3,13 @@ const Router = require('koa-router');
 const { model: { User, Team, Project, Task, Label, TaskLabels } } = require('./model');
 const { getAccessToken, getCurrentUser, getTeams } = require('./lib/api');
 const { defaults: { admin }, teams } = require('./config');
-const redis = require('./lib/redis');
+const { setToken } = require('./lib/token');
 
 const app = new Koa();
 const router = new Router();
+const modelOptions = {
+  raw: true
+};
 
 router.get('/coding/callback', async (ctx) => {
   const code = ctx.query.code;
@@ -28,8 +31,7 @@ router.get('/coding/callback', async (ctx) => {
     // 获取用户名
     const user = await getCurrentUser({ accessToken: token.access_token });
     if (user.global_key === admin) {
-      await redis.setex('access_token', ~~token.expires_in - 3600, token.access_token);
-      await redis.setex('refresh_token', ~~token.expires_in - 3600, token.refresh_token);
+      await setToken(token);
     }
     // 登录成功跳转
     ctx.redirect(`/login?result=${token.access_token}`);
@@ -46,9 +48,7 @@ router.get('/check', async (ctx) => {
 });
 
 router.get('/user', async (ctx) => {
-  const data = await User.findAll({
-    raw: true
-  });
+  const data = await User.findAll(modelOptions);
   ctx.body = {
     status: 1,
     data
@@ -56,9 +56,7 @@ router.get('/user', async (ctx) => {
 });
 
 router.get('/team', async (ctx) => {
-  const data = await Team.findAll({
-    raw: true
-  });
+  const data = await Team.findAll(modelOptions);
   ctx.body = {
     status: 1,
     data
@@ -66,9 +64,7 @@ router.get('/team', async (ctx) => {
 });
 
 router.get('/project', async (ctx) => {
-  const data = await Project.findAll({
-    raw: true
-  });
+  const data = await Project.findAll(modelOptions);
   ctx.body = {
     status: 1,
     data
@@ -76,9 +72,7 @@ router.get('/project', async (ctx) => {
 });
 
 router.get('/task', async (ctx) => {
-  const data = await Task.findAll({
-    raw: true
-  });
+  const data = await Task.findAll(modelOptions);
   ctx.body = {
     status: 1,
     data
@@ -86,9 +80,7 @@ router.get('/task', async (ctx) => {
 });
 
 router.get('/label', async (ctx) => {
-  const data = await Label.findAll({
-    raw: true
-  });
+  const data = await Label.findAll(modelOptions);
   ctx.body = {
     status: 1,
     data
@@ -96,9 +88,7 @@ router.get('/label', async (ctx) => {
 });
 
 router.get('/tasklabels', async (ctx) => {
-  const data = await TaskLabels.findAll({
-    raw: true
-  });
+  const data = await TaskLabels.findAll(modelOptions);
   ctx.body = {
     status: 1,
     data

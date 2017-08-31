@@ -1,4 +1,5 @@
 const { getAccessToken } = require('../lib/api');
+const { setToken } = require('../lib/token');
 const redis = require('../lib/redis');
 
 exports.refreshToken = async () => {
@@ -9,8 +10,7 @@ exports.refreshToken = async () => {
       grantType: 'refresh_token'
     });
     if (token) {
-      await redis.setex('access_token', ~~token.expires_in - 3600, token.access_token);
-      await redis.setex('refresh_token', ~~token.expires_in - 3600, token.refresh_token);
+      await setToken(token);
     }
   }
 };

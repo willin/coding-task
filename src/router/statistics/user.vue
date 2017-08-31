@@ -282,7 +282,7 @@ export default {
             normal: {
               show: true,
               position: 'insideLeft',
-              textStyle: { color: '#ffffff' }
+              textStyle: { color: '#fff' }
             }
           },
           itemStyle: {
@@ -302,7 +302,7 @@ export default {
             normal: {
               show: true,
               position: 'insideRight',
-              textStyle: { color: '#ffffff' }
+              textStyle: { color: '#fff' }
             }
           },
           itemStyle: {

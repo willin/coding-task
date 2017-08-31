@@ -18,9 +18,9 @@ exports.dailyNotice = async () => {
     raw: true
   });
   let msg;
-  users = users.filter(x => tasks.findIndex(y => x.id === y.owner_id));
+  users = users.filter(x => tasks.findIndex(y => x.id === y.owner_id) !== -1);
   if (users.length === 0) {
-    msg = '今日没有待办任务哦';
+    msg = '今日没有待办任务, 大家别偷懒哦';
   } else {
     const userTasks = users.map(x => ({
       username: x.name,

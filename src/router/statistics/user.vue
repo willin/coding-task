@@ -229,11 +229,11 @@ export default {
           show: false,
           type: 'value',
           inverse: true,
-          axisLine: {show: false},
-          axisTick: {show: false},
+          axisLine: { show: false },
+          axisTick: { show: false },
           position: 'bottom',
-          axisLabel: {show: false},
-          splitLine: {show: false}
+          axisLabel: { show: false },
+          splitLine: { show: false }
         }, {
           gridIndex: 1,
           show: false
@@ -241,37 +241,37 @@ export default {
           gridIndex: 2,
           show: true,
           type: 'value',
-          axisLine: {show: false},
-          axisTick: {show: false},
+          axisLine: { show: false },
+          axisTick: { show: false },
           position: 'bottom',
-          axisLabel: {show: false},
-          splitLine: {show: false}
+          axisLabel: { show: false },
+          splitLine: { show: false }
         }],
         yAxis: [{
           type: 'category',
           inverse: true,
           position: 'right',
-          axisLine: {show: false},
-          axisTick: {show: false},
-          axisLabel: {show: false},
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: { show: false },
           data: []
         }, {
           gridIndex: 1,
           type: 'category',
           inverse: true,
           position: 'left',
-          axisLine: {show: false},
-          axisTick: {show: false},
-          axisLabel: {show: true},
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: { show: true },
           data: chartData.map(x => x.name)
         }, {
           gridIndex: 2,
           type: 'category',
           inverse: true,
           position: 'left',
-          axisLine: {show: false},
-          axisTick: {show: false},
-          axisLabel: {show: false},
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: { show: false },
           data: []
         }],
         series: [{
@@ -282,7 +282,7 @@ export default {
             normal: {
               show: true,
               position: 'insideLeft',
-              textStyle: {color: '#ffffff'}
+              textStyle: { color: '#ffffff' }
             }
           },
           itemStyle: {
@@ -302,7 +302,7 @@ export default {
             normal: {
               show: true,
               position: 'insideRight',
-              textStyle: {color: '#ffffff'}
+              textStyle: { color: '#ffffff' }
             }
           },
           itemStyle: {

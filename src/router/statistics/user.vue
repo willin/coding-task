@@ -28,7 +28,7 @@ import { mapGetters } from 'vuex';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/chart/graph';
 
-import chart     from '../../component/chart';
+import chart from '../../component/chart';
 
 export default {
   props: ['params'],
@@ -191,18 +191,18 @@ export default {
         ]
       };
     },
-    allUserTask(users,tasks) {
+    allUserTask(users, tasks) {
       const chartData = [];
       for (let i = 0; i < users.length; i += 1) {
         chartData.push(
           {
-            name:users[i].name,
-            done:tasks.filter(x => x.owner_id === users[i].id && x.status === 2).length,
-            undone:tasks.filter(x => x.owner_id === users[i].id && x.status === 1).length
+            name: users[i].name,
+            done: tasks.filter(x => x.owner_id === users[i].id && x.status === 2).length,
+            undone: tasks.filter(x => x.owner_id === users[i].id && x.status === 1).length
           }
-        )
+        );
       }
-      chartData.sort((x,y)=>y.done-x.done);
+      chartData.sort((x, y) => y.done - x.done);
       return {
         legend: {
           data: ['未完成', '已完成'],
@@ -239,6 +239,7 @@ export default {
           show: false
         }, {
           gridIndex: 2,
+          show: true,
           type: 'value',
           axisLine: {show: false},
           axisTick: {show: false},
@@ -262,7 +263,7 @@ export default {
           axisLine: {show: false},
           axisTick: {show: false},
           axisLabel: {show: true},
-          data: chartData.map(x=>x.name)
+          data: chartData.map(x => x.name)
         }, {
           gridIndex: 2,
           type: 'category',
@@ -273,52 +274,45 @@ export default {
           axisLabel: {show: false},
           data: []
         }],
-        series: [
-          {
-            name: '未完成',
-            type: 'bar',
-            barWidth: 20,
-            label: {
-              normal: {
-                show: true,
-                position: 'insideLeft',
-                textStyle: {
-                  color: '#fff'
-                }
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#ff5d5d',
-                barBorderRadius: [5, 0, 0, 5]
-              }
-            },
-            data: chartData.map(x=>x.undone)
+        series: [{
+          name: '未完成',
+          type: 'bar',
+          barWidth: 20,
+          label: {
+            normal: {
+              show: true,
+              position: 'insideLeft',
+              textStyle: {color: '#ffffff'}
+            }
           },
-          {
-            name: '已完成',
-            type: 'bar',
-            barWidth: 20,
-            xAxisIndex: 2,
-            yAxisIndex: 2,
-            label: {
-              normal: {
-                show: true,
-                position: 'insideRight',
-                textStyle: {
-                  color: '#ffffff'
-                }
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#00cc99',
-                barBorderRadius: [0, 5, 5, 0]
-              }
-            },
-            data: chartData.map(x=>x.done)
-          }
-        ]
+          itemStyle: {
+            normal: {
+              color: '#ff5d5d',
+              barBorderRadius: [5, 0, 0, 5]
+            }
+          },
+          data: chartData.map(x => x.undone)
+        }, {
+          name: '已完成',
+          type: 'bar',
+          barWidth: 20,
+          xAxisIndex: 2,
+          yAxisIndex: 2,
+          label: {
+            normal: {
+              show: true,
+              position: 'insideRight',
+              textStyle: {color: '#ffffff'}
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: '#00cc99',
+              barBorderRadius: [0, 5, 5, 0]
+            }
+          },
+          data: chartData.map(x => x.done)
+        }]
       };
     }
   },

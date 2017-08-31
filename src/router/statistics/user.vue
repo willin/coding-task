@@ -3,7 +3,7 @@
     <v-flex xs12>
       <v-card>
         <v-card-text>
-          <chart :options="allUserTask()"></chart>
+          <chart :options="allUserTask(users,tasks)"></chart>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -28,7 +28,7 @@ import { mapGetters } from 'vuex';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/chart/graph';
 
-import chart from '../../component/chart';
+import chart     from '../../component/chart';
 
 export default {
   props: ['params'],
@@ -37,16 +37,9 @@ export default {
   },
   data() {
     return {
-      yAxisData: [],
-      seriesData: [[], []]
     };
   },
   created() {
-    for (let i = 0; i < this.users.length; i += 1) {
-      this.yAxisData.push(this.users[i].name);
-      this.seriesData[0].push(this.tasks.filter(x => x.owner_id === this.users[i].id && x.status === 1).length); // 未完成
-      this.seriesData[1].push(this.tasks.filter(x => x.owner_id === this.users[i].id && x.status === 2).length); // 已完成
-    }
   },
   methods: {
     userTask(user) {
@@ -198,7 +191,18 @@ export default {
         ]
       };
     },
-    allUserTask() {
+    allUserTask(users,tasks) {
+      const chartData = [];
+      for (let i = 0; i < users.length; i += 1) {
+        chartData.push(
+          {
+            name:users[i].name,
+            done:tasks.filter(x => x.owner_id === users[i].id && x.status === 2).length,
+            undone:tasks.filter(x => x.owner_id === users[i].id && x.status === 1).length
+          }
+        )
+      }
+      chartData.sort((x,y)=>y.done-x.done);
       return {
         legend: {
           data: ['未完成', '已完成'],
@@ -219,96 +223,54 @@ export default {
           show: false,
           right: 0,
           containLabel: false,
-          width: '46%'
+          width: '48%'
         }],
         xAxis: [{
           show: false,
           type: 'value',
           inverse: true,
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
+          axisLine: {show: false},
+          axisTick: {show: false},
           position: 'bottom',
-          axisLabel: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          }
+          axisLabel: {show: false},
+          splitLine: {show: false}
         }, {
           gridIndex: 1,
           show: false
         }, {
           gridIndex: 2,
           type: 'value',
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
+          axisLine: {show: false},
+          axisTick: {show: false},
           position: 'bottom',
-          axisLabel: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          }
+          axisLabel: {show: false},
+          splitLine: {show: false}
         }],
         yAxis: [{
           type: 'category',
           inverse: true,
           position: 'right',
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
+          axisLine: {show: false},
+          axisTick: {show: false},
+          axisLabel: {show: false},
           data: []
-
         }, {
           gridIndex: 1,
           type: 'category',
           inverse: true,
           position: 'left',
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: true
-          },
-          data: this.yAxisData.map(value => ({
-            value,
-            textStyle: {
-              align: 'center',
-              color: '#000',
-              fontSize: 12
-            }
-          }))
+          axisLine: {show: false},
+          axisTick: {show: false},
+          axisLabel: {show: true},
+          data: chartData.map(x=>x.name)
         }, {
           gridIndex: 2,
           type: 'category',
           inverse: true,
           position: 'left',
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
+          axisLine: {show: false},
+          axisTick: {show: false},
+          axisLabel: {show: false},
           data: []
         }],
         series: [
@@ -319,7 +281,6 @@ export default {
             label: {
               normal: {
                 show: true,
-                color: 'red',
                 position: 'insideLeft',
                 textStyle: {
                   color: '#fff'
@@ -332,7 +293,7 @@ export default {
                 barBorderRadius: [5, 0, 0, 5]
               }
             },
-            data: this.seriesData[0]
+            data: chartData.map(x=>x.undone)
           },
           {
             name: '已完成',
@@ -343,7 +304,6 @@ export default {
             label: {
               normal: {
                 show: true,
-                color: 'red',
                 position: 'insideRight',
                 textStyle: {
                   color: '#ffffff'
@@ -354,12 +314,9 @@ export default {
               normal: {
                 color: '#00cc99',
                 barBorderRadius: [0, 5, 5, 0]
-              },
-              emphasis: {
-                show: false
               }
             },
-            data: this.seriesData[1]
+            data: chartData.map(x=>x.done)
           }
         ]
       };

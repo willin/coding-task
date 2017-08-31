@@ -22,7 +22,7 @@ const updateTasks = (tasks) => {
     delete task.owner;
     let deadline = 0;
     if (task.deadline) {
-      deadline = new Date(`${new Date(task.deadline).toLocaleDateString()} 22:00:00`).getTime();
+      deadline = new Date(`${new Date(task.deadline).toLocaleDateString()} 12:00:00`).getTime();
     }
     await Task.upsert(Object.assign(task, { owner_id: owner.id, deadline }));
   });

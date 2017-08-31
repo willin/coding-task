@@ -14,10 +14,11 @@ exports.dailyNotice = async () => {
       status: 1
     }
   });
-  const users = await User.findAll({
+  let users = await User.findAll({
     raw: true
-  }).filter(x => tasks.findIndex(y => x.id === y.owner_id));
+  });
   let msg;
+  users = users.filter(x => tasks.findIndex(y => x.id === y.owner_id));
   if (users.length === 0) {
     msg = '今日没有待办任务哦';
   } else {

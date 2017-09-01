@@ -266,9 +266,11 @@ export default {
           data: (() => {
             const nameData = [];
             for (let i = 0; i < chartData.length; i += 1) {
-              nameData.push(chartData[i].name);
+              nameData.push({
+                value: chartData[i].name,
+                textStyle: {align: 'center'}
+              });
             }
-            console.log(nameData);
             return nameData;
           })()
         }, {
@@ -303,7 +305,6 @@ export default {
             for (let i = 0; i < chartData.length; i += 1) {
               undoneData.push(chartData[i].undone);
             }
-            console.log(undoneData);
             return undoneData;
           })()
         }, {
@@ -330,7 +331,6 @@ export default {
             for (let i = 0; i < chartData.length; i += 1) {
               doneData.push(chartData[i].done);
             }
-            console.log(doneData);
             return doneData;
           })()
         }]

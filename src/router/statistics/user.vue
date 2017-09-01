@@ -263,7 +263,14 @@ export default {
           axisLine: { show: false },
           axisTick: { show: false },
           axisLabel: { show: true },
-          data: chartData.map(x => x.name)
+          data: (() => {
+            const nameData = [];
+            for (let i = 0; i < chartData.length; i += 1) {
+              nameData.push(chartData[i].name);
+            }
+            console.log(nameData);
+            return nameData;
+          })()
         }, {
           gridIndex: 2,
           type: 'category',
@@ -291,7 +298,14 @@ export default {
               barBorderRadius: [5, 0, 0, 5]
             }
           },
-          data: chartData.map(x => x.undone)
+          data: (() => {
+            const undoneData = [];
+            for (let i = 0; i < chartData.length; i += 1) {
+              undoneData.push(chartData[i].undone);
+            }
+            console.log(undoneData);
+            return undoneData;
+          })()
         }, {
           name: '已完成',
           type: 'bar',
@@ -311,7 +325,14 @@ export default {
               barBorderRadius: [0, 5, 5, 0]
             }
           },
-          data: chartData.map(x => x.done)
+          data: (() => {
+            const doneData = [];
+            for (let i = 0; i < chartData.length; i += 1) {
+              doneData.push(chartData[i].done);
+            }
+            console.log(doneData);
+            return doneData;
+          })()
         }]
       };
     }

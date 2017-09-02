@@ -18,12 +18,15 @@ if (type === 'application') {
 }
 
 if (notification) {
+  // 每周一至周五 早上8:30 通知
   new CronJob('0 30 8 * * 1-5', async () => {
     await dailyNotice();
   }, null, true, 'Asia/Shanghai');
+  // 每周六 晚上8点 通知
   new CronJob('0 0 20 * * 6', async () => {
     await notice('week');
   }, null, true, 'Asia/Shanghai');
+  // 每月1号 早上9点通知
   new CronJob('0 0 9 1 * *', async () => {
     await notice('month');
   }, null, true, 'Asia/Shanghai');

@@ -6,8 +6,8 @@ const dingbot = async ({ url = '', msg = '' } = {}) => {
   const opts = {
     msgtype: 'markdown',
     markdown: {
-      title: '今日任务提示',
-      text: `## 今日任务提示\n${msg}`
+      title: '任务提示',
+      text: `## 任务提示\n${msg}`
     },
     at: {
       isAtAll: true

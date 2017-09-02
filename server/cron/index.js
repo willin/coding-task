@@ -24,4 +24,7 @@ if (notification) {
   new CronJob('0 0 14 * * 6', async () => {
     await weeklyNotice();
   }, null, true, 'Asia/Shanghai');
+  new CronJob('0 0 9 1 * *', async () => {
+    await weeklyNotice();
+  }, null, true, 'Asia/Shanghai');
 }

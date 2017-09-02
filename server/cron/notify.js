@@ -3,6 +3,14 @@ const { model: { User, Task } } = require('../model');
 const bot = require('../lib/bot');
 const moment = require('moment');
 
+const filterUsers = async (tasks) => {
+  let users = await User.findAll({
+    raw: true
+  });
+  users = users.filter(x => tasks.findIndex(y => x.id === y.owner_id) !== -1);
+  return users;
+};
+
 exports.dailyNotice = async () => {
   const tasks = await Task.findAll({
     raw: true,
@@ -14,11 +22,8 @@ exports.dailyNotice = async () => {
       status: 1
     }
   });
-  let users = await User.findAll({
-    raw: true
-  });
+  const users = await filterUsers(tasks);
   let msg;
-  users = users.filter(x => tasks.findIndex(y => x.id === y.owner_id) !== -1);
   if (users.length === 0) {
     msg = '今日没有待办任务, 大家别偷懒哦';
   } else {
@@ -32,20 +37,17 @@ exports.dailyNotice = async () => {
   return result;
 };
 
-exports.weeklyNotice = async () => {
+exports.notice = async (type = 'week') => {
   const tasks = await Task.findAll({
     raw: true,
     where: {
       deadline: {
-        $gt: moment().startOf('week').valueOf(),
-        $lt: moment().endOf('week').valueOf()
+        $gt: moment().startOf(type).valueOf(),
+        $lt: moment().endOf(type).valueOf()
       }
     }
   });
-  let users = await User.findAll({
-    raw: true
-  });
-  users = users.filter(x => tasks.findIndex(y => x.id === y.owner_id) !== -1);
+  const users = await filterUsers(tasks);
   const userTasks = users.map(x => ({
     username: x.name,
     doneTasks: tasks.filter(y => y.owner_id === x.id && y.status === 2).length,
@@ -54,7 +56,7 @@ exports.weeklyNotice = async () => {
   })).sort((x, y) => y.doneTasks - x.doneTasks);
   const msg = userTasks.map((x) => {
     let message = `### ${x.username}\n\n`;
-    message += `本周完成任务: ${x.doneTasks}个, 未完成任务: ${x.undoneTasks}个.\n`;
+    message += `上${type === 'month' ? '月' : '周'}完成任务: ${x.doneTasks}个, 未完成任务: ${x.undoneTasks}个.\n`;
     if (x.important.length > 0) {
       message += `\n重要任务 ${x.important.length}个: \n`;
       x.important.forEach((m) => {

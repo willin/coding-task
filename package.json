@@ -1,5 +1,5 @@
 {
-  "name": "vuetify-demo",
+  "name": "coding-task",
   "version": "1.0.0",
   "main": "src/main.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "NODE_ENV=production webpack --config build/webpack.config.js --progress --hide-modules",
     "analyze": "NODE_ENV=production webpack --config build/webpack.analyze.js --progress --hide-modules"
   },
-  "repository": "git@github.com:AirDwing/vuetify-demo.git",
+  "repository": "git@github.com:AirDwing/coding-task.git",
   "author": "willin <willin@willin.org>",
   "license": "MIT",
   "devDependencies": {

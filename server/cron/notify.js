@@ -37,6 +37,36 @@ exports.dailyNotice = async () => {
   return result;
 };
 
+const nextPeriod = async (type = 'week') => {
+  const tasks = await Task.findAll({
+    raw: true,
+    where: {
+      deadline: {
+        $gt: moment().startOf(type).add(1, type === 'month' ? 'M' : 'w').valueOf(),
+        $lt: moment().endOf(type).add(1, type === 'month' ? 'M' : 'w').valueOf()
+      }
+    }
+  });
+  const users = await filterUsers(tasks);
+  const userTasks = users.map(x => ({
+    username: x.name,
+    tasks: tasks.filter(y => y.owner_id === x.id).length,
+    important: tasks.filter(y => y.owner_id === x.id && y.priority >= 2)
+  })).sort((x, y) => y.doneTasks - x.doneTasks);
+  const msg = userTasks.map((x) => {
+    let message = `### ${x.username}\n\n`;
+    message += `\n\n任务: ${x.tasks}个`;
+    if (x.important.length > 0) {
+      message += `重要任务 ${x.important.length}个: \n`;
+      x.important.forEach((m) => {
+        message += `- ${m.content} ${m.status === 2 ? '' : '(未完成)'}\n`;
+      });
+    }
+    return `${message}\n`;
+  }).join('\n');
+  return msg;
+};
+
 exports.notice = async (type = 'week') => {
   const tasks = await Task.findAll({
     raw: true,
@@ -54,9 +84,9 @@ exports.notice = async (type = 'week') => {
     undoneTasks: tasks.filter(y => y.owner_id === x.id && y.status === 1).length,
     important: tasks.filter(y => y.owner_id === x.id && y.priority >= 2)
   })).sort((x, y) => y.doneTasks - x.doneTasks);
-  const msg = userTasks.map((x) => {
+  let msg = userTasks.map((x) => {
     let message = `### ${x.username}\n\n`;
-    message += `上${type === 'month' ? '月' : '周'}完成任务: ${x.doneTasks}个, 未完成任务: ${x.undoneTasks}个.\n`;
+    message += `完成任务: ${x.doneTasks}个, 未完成任务: ${x.undoneTasks}个.\n`;
     if (x.important.length > 0) {
       message += `\n重要任务 ${x.important.length}个: \n`;
       x.important.forEach((m) => {
@@ -65,7 +95,8 @@ exports.notice = async (type = 'week') => {
     }
     return message;
   }).join('\n');
-
+  msg = `## 本${type === 'month' ? '月' : '周'}任务完成情况 \n\n${msg}`;
+  msg += `## 下${type === 'month' ? '月' : '周'}任务计划 \n\n${await nextPeriod(type)}`;
   const result = await bot(msg);
   return result;
 };

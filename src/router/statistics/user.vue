@@ -3,7 +3,7 @@
     <v-flex xs12>
       <v-card>
         <v-card-text>
-          <chart :options="allUserTask(users,tasks)"></chart>
+          <chart :autoResize="true" :options="allUserTask(users,tasks)"></chart>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -15,7 +15,7 @@
             <span v-if="user.slogan">&nbsp; - {{ user.slogan }}</span>
           </v-card-title>
           <v-card-text>
-            <chart :options="userTask(user)"></chart>
+            <chart :autoResize="true" :options="userTask(user)"></chart>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -37,10 +37,11 @@ export default {
   },
   data() {
     return {
+      screenWidth: document.body.clientWidth
     };
   },
-  created() {
-  },
+  created() { },
+  watch: {},
   methods: {
     userTask(user) {
       return {
@@ -223,7 +224,7 @@ export default {
           show: false,
           right: 0,
           containLabel: false,
-          width: '48%'
+          width: '46%'
         }],
         xAxis: [{
           show: false,
@@ -268,7 +269,7 @@ export default {
             for (let i = 0; i < chartData.length; i += 1) {
               nameData.push({
                 value: chartData[i].name,
-                textStyle: {align: 'center'}
+                textStyle: { align: 'center' }
               });
             }
             return nameData;

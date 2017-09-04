@@ -37,6 +37,8 @@ exports.dailyNotice = async () => {
   return result;
 };
 
+const buildMessage = m => `- ${m.content} ${m.status === 2 ? '' : '(未完成)'}\n`;
+
 const nextPeriod = async (type = 'week') => {
   const tasks = await Task.findAll({
     raw: true,
@@ -59,7 +61,7 @@ const nextPeriod = async (type = 'week') => {
     if (x.important.length > 0) {
       message += `重要任务 ${x.important.length}个: \n`;
       x.important.forEach((m) => {
-        message += `- ${m.content} ${m.status === 2 ? '' : '(未完成)'}\n`;
+        message += buildMessage(m);
       });
     }
     return `${message}\n`;
@@ -90,7 +92,7 @@ exports.notice = async (type = 'week') => {
     if (x.important.length > 0) {
       message += `\n重要任务 ${x.important.length}个: \n`;
       x.important.forEach((m) => {
-        message += `- ${m.content} ${m.status === 2 ? '' : '(未完成)'}\n`;
+        message += buildMessage(m);
       });
     }
     return message;

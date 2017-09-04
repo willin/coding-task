@@ -22,7 +22,7 @@
         <router-view></router-view>
       </transition>
     </main>
-    <v-progress-linear :value="progress" height="10" info>
+    <v-progress-linear v-model="schedule" height="10" info>
     </v-progress-linear>
   </v-app>
 </template>
@@ -34,9 +34,11 @@ export default {
   data() {
     return {
       inited: false,
-      title: this.$route.name
+      title: this.$route.name,
+      schedule: this.progress
     };
   },
+  created() {},
   computed: {
     ...mapGetters([
       'progress'

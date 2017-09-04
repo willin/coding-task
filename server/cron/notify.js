@@ -37,7 +37,16 @@ exports.dailyNotice = async () => {
   return result;
 };
 
-const buildMessage = m => `- ${m.content} ${m.status === 2 ? '' : '(未完成)'}\n`;
+const buildMessage = (x) => {
+  let msg = '';
+  if (x.length > 0) {
+    msg += `, 其中重要任务 ${x.length}个:\n`;
+    x.forEach((m) => {
+      msg += `- ${m.content} ${m.status === 2 ? '' : '(未完成)'}\n`;
+    });
+  }
+  return msg;
+};
 
 const nextPeriod = async (type = 'week') => {
   const tasks = await Task.findAll({
@@ -58,12 +67,7 @@ const nextPeriod = async (type = 'week') => {
   const msg = userTasks.map((x) => {
     let message = `### ${x.username}\n\n`;
     message += `\n\n任务: ${x.tasks}个`;
-    if (x.important.length > 0) {
-      message += `重要任务 ${x.important.length}个: \n`;
-      x.important.forEach((m) => {
-        message += buildMessage(m);
-      });
-    }
+    message += buildMessage(x);
     return `${message}\n`;
   }).join('\n');
   return msg;
@@ -88,14 +92,9 @@ exports.notice = async (type = 'week') => {
   })).sort((x, y) => y.doneTasks - x.doneTasks);
   let msg = userTasks.map((x) => {
     let message = `### ${x.username}\n\n`;
-    message += `完成任务: ${x.doneTasks}个, 未完成任务: ${x.undoneTasks}个.\n`;
-    if (x.important.length > 0) {
-      message += `\n重要任务 ${x.important.length}个: \n`;
-      x.important.forEach((m) => {
-        message += buildMessage(m);
-      });
-    }
-    return message;
+    message += `完成任务: ${x.doneTasks}个, 未完成任务: ${x.undoneTasks}个`;
+    message += buildMessage(x.important);
+    return `${message}\n`;
   }).join('\n');
   msg = `## 本${type === 'month' ? '月' : '周'}任务完成情况 \n\n${msg}`;
   msg += `## 下${type === 'month' ? '月' : '周'}任务计划 \n\n${await nextPeriod(type)}`;

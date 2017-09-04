@@ -65,8 +65,6 @@ export default {
   data() {
     return {};
   },
-  created() {
-  },
   methods: {
     moment,
     displayPriority(i) {

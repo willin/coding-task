@@ -16,14 +16,29 @@ export default {
       return new Date().getTime() > this.time;
     },
     timetogo() {
-      return moment(this.time).calendar(null, {
-        sameDay: '[今天]',
-        nextDay: '[明天]',
-        nextWeek: '[下]ddd',
-        lastDay: '[昨天]',
-        lastWeek: '[上]ddd',
-        sameElse: 'YYYY-MM-DD'
-      });
+      const time = moment(this.time);
+      const diff = Math.floor(time.diff(moment(), 'days', true));
+      switch (diff) {
+        case -1: return '昨天';
+        case 0: return '今天';
+        case 2: return '明天';
+        default: {
+          const startOfPrevWeek = moment().startOf('week').subtract(1, 'w');
+          const endOfPrevWeek = moment().startOf('week');
+          const startOfNextWeek = moment().endOf('week');
+          const endOfNextWeek = moment().endOf('week').add(1, 'w');
+          if (time.isBetween(startOfPrevWeek, endOfPrevWeek)) {
+            return time.format('上ddd');
+          }
+          if (time.isBetween(endOfPrevWeek, startOfNextWeek)) {
+            return time.format('ddd');
+          }
+          if (time.isBetween(startOfNextWeek, endOfNextWeek)) {
+            return time.format('下ddd');
+          }
+          return time.format('YYYY-MM-DD');
+        }
+      }
     }
   }
 };

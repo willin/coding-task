@@ -66,9 +66,6 @@ export default {
     return {};
   },
   created() {
-    console.log(this.tasks);
-    console.log('this.tasks[0].deadline= ' + this.tasks[0].deadline);
-    console.log('moment(this.tasks[0].deadline).format(\'YYYY年\') =' + moment(this.tasks[0].deadline).format('YYYY年'));
   },
   methods: {
     moment,

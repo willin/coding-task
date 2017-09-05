@@ -25,11 +25,10 @@
     </v-toolbar>
     <main>
       <transition name="slide-fade">
-        <router-view></router-view>
+        <router-view v-if="post"></router-view>
       </transition>
     </main>
-    <v-progress-linear :value="progress" height="10" info>
-    </v-progress-linear>
+    <v-progress-linear :value="progress" v-model="progress" height="10" info></v-progress-linear>
   </v-app>
 </template>
 
@@ -40,7 +39,8 @@ export default {
   data() {
     return {
       inited: false,
-      title: this.$route.name
+      title: this.$route.name,
+      post: false
     };
   },
   computed: {
@@ -54,6 +54,12 @@ export default {
       };
     }
   },
+  watch: {
+    $route() {
+      this.title = this.$route.name;
+      this.fetchData();
+    }
+  },
   methods: {
     async init() {
       await this.fetch();
@@ -65,11 +71,20 @@ export default {
     ...mapActions({
       fetch: 'getAllData',
       setProgress: 'setProgress'
-    })
-  },
-  watch: {
-    $route() {
-      this.title = this.$route.name;
+    }),
+    fetchData() {
+      this.post = false;
+      let p = 0;
+      const timer = setInterval(() => {
+        if (p === 100) {
+          this.post = true;
+          p = 100;
+          this.setProgress(p);
+          return clearInterval(timer);
+        }
+        p += 25;
+        this.setProgress(p);
+      }, 500);
     }
   },
   beforeUpdate() {
@@ -77,9 +92,7 @@ export default {
       this.init();
     }
   },
-  mounted() {
-    this.setProgress(100);
-  }
+  mounted() { }
 };
 </script>
 

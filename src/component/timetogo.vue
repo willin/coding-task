@@ -21,7 +21,8 @@ export default {
       switch (diff) {
         case -1: return '昨天';
         case 0: return '今天';
-        case 2: return '明天';
+        case 1: return '明天';
+        case 2: return '后天';
         default: {
           const startOfPrevWeek = moment().startOf('week').subtract(1, 'w');
           const endOfPrevWeek = moment().startOf('week');

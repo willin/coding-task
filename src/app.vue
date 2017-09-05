@@ -5,15 +5,21 @@
       <v-spacer></v-spacer>
 
       <router-link to="/">
-        <v-btn icon><v-icon>pages</v-icon></v-btn>
+        <v-btn icon>
+          <v-icon>pages</v-icon>
+        </v-btn>
       </router-link>
 
       <router-link to="/timeline">
-        <v-btn icon><v-icon>format_list_numbered</v-icon></v-btn>
+        <v-btn icon>
+          <v-icon>format_list_numbered</v-icon>
+        </v-btn>
       </router-link>
 
       <router-link to="/statistics">
-        <v-btn icon><v-icon>poll</v-icon></v-btn>
+        <v-btn icon>
+          <v-icon>poll</v-icon>
+        </v-btn>
       </router-link>
 
     </v-toolbar>
@@ -22,7 +28,7 @@
         <router-view></router-view>
       </transition>
     </main>
-    <v-progress-linear v-model="schedule" height="10" info>
+    <v-progress-linear :value="progress" height="10" info>
     </v-progress-linear>
   </v-app>
 </template>
@@ -34,11 +40,9 @@ export default {
   data() {
     return {
       inited: false,
-      title: this.$route.name,
-      schedule: this.progress
+      title: this.$route.name
     };
   },
-  created() {},
   computed: {
     ...mapGetters([
       'progress'

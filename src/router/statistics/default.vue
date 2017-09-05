@@ -2,13 +2,17 @@
 <template>
   <v-layout row-sm column child-flex-sm>
     <v-card class="ma-1">
-      <v-card-title primary-title>任务统计</v-card-title>
+      <v-card-title primary-title>
+        任务统计
+      </v-card-title>
       <v-card-text>
         <chart :options="tasks"></chart>
       </v-card-text>
     </v-card>
     <v-card class="ma-1">
-      <v-card-title primary-title>任务详情统计</v-card-title>
+      <v-card-title primary-title>
+        任务详情统计
+      </v-card-title>
       <v-card-text>
         <chart :options="details"></chart>
       </v-card-text>

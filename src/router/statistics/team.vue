@@ -3,7 +3,9 @@
     <template v-for="team in teams">
       <v-flex xs12 :key="team.id">
         <v-card>
-          <v-card-title class="primary white--text">{{ team.name }}</v-card-title>
+          <v-card-title class="primary white--text">
+            {{ team.name }}
+          </v-card-title>
           <v-card-text>
             <chart :options="teamTask(team)"></chart>
           </v-card-text>

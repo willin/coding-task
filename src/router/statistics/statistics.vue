@@ -4,16 +4,16 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <router-link to="/statistics">
-          <v-btn flat style="height: 100%;margin: 0;">统计首页</v-btn>
+          <v-btn flat>统计首页</v-btn>
         </router-link>
         <router-link to="/statistics/team">
-          <v-btn flat style="height: 100%;margin: 0;">团队统计</v-btn>
+          <v-btn flat>团队统计</v-btn>
         </router-link>
         <router-link to="/statistics/project">
-          <v-btn flat style="height: 100%;margin: 0;">项目统计</v-btn>
+          <v-btn flat>项目统计</v-btn>
         </router-link>
         <router-link to="/statistics/user">
-          <v-btn flat style="height: 100%;margin: 0;">用户统计</v-btn>
+          <v-btn flat>用户统计</v-btn>
         </router-link>
       </v-toolbar-items>
     </v-toolbar>
@@ -40,10 +40,10 @@ export default {
     return {
       currentView: '',
       params: [],
-      miniTitle: '',
+      miniTitle: ''
     };
   },
-  created: function () {
+  created() {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -64,3 +64,9 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus" scoped>
+button
+  height 100%
+  margin 0
+</style>

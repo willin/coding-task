@@ -23,15 +23,18 @@ exports.dailyNotice = async () => {
     }
   });
   const users = await filterUsers(tasks);
-  let msg;
+  let msg = '';
   if (users.length === 0) {
-    msg = '今日没有待办任务, 大家别偷懒哦';
+    msg = '今日竟然没有安排任务, 还想要年终奖么?';
   } else {
     const userTasks = users.map(x => ({
       username: x.name,
       tasks: tasks.filter(y => y.owner_id === x.id).map(z => z.content)
     }));
-    msg = userTasks.map(x => `### ${x.username}\n\n${x.tasks.map(t => `- ${t}\n`).join('')}`).join('\n');
+    if (users.length < 5) {
+      msg = '怎么今天只有这么几个小伙伴有任务? 偷懒是要打pp的.\n\n';
+    }
+    msg += userTasks.map(x => `### ${x.username}\n\n${x.tasks.map(t => `- ${t}\n`).join('')}`).join('\n');
   }
   const result = await bot(msg);
   return result;

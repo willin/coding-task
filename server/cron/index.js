@@ -2,7 +2,7 @@ const { defaults: { type }, notification: { type: notification } } = require('..
 const CronJob = require('cron').CronJob;
 const sync = require('./sync');
 const { refreshToken } = require('./token');
-const { dailyNotice, notice } = require('./notify');
+const { dailyNotice, dailyUndoneNotice, notice } = require('./notify');
 
 /* eslint-disable no-new */
 // 更新任务数据, 每隔10分定时执行
@@ -21,6 +21,10 @@ if (notification) {
   // 每周一至周五 早上8:30 通知
   new CronJob('0 30 8 * * 1-5', async () => {
     await dailyNotice();
+  }, null, true, 'Asia/Shanghai');
+  // 每周一至周五 下午5:00 通知
+  new CronJob('0 0 17 * * 1-5', async () => {
+    await dailyUndoneNotice();
   }, null, true, 'Asia/Shanghai');
   // 每周六 晚上8点 通知
   new CronJob('0 0 20 * * 6', async () => {

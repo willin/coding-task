@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import tasks from './tasks.vue';
 
 export default {
@@ -107,7 +107,10 @@ export default {
     reset() {
       this.dateStart = null;
       this.dateEnd = null;
-    }
+    },
+    ...mapActions({
+      setProgress: 'setProgress'
+    })
   },
   computed: {
     ...mapGetters([
@@ -115,6 +118,21 @@ export default {
       'tasksUndone',
       'users'
     ])
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.setProgress(100);
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    next(
+      this.setProgress(0)
+    );
+  },
+  beforeRouteUpdate(to, from, next) {
+    next(
+      this.setProgress(0)
+    );
   }
 };
 </script>

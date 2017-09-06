@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/chart/graph';
 
@@ -43,6 +43,9 @@ export default {
   created() { },
   watch: {},
   methods: {
+    ...mapActions({
+      setProgress: 'setProgress'
+    }),
     userTask(user) {
       return {
         title: {
@@ -343,6 +346,21 @@ export default {
       'users',
       'tasks'
     ])
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.setProgress(100);
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    next(
+      this.setProgress(0)
+    );
+  },
+  beforeRouteUpdate(to, from, next) {
+    next(
+      this.setProgress(0)
+    );
   }
 };
 </script>

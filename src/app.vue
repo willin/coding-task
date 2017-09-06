@@ -25,7 +25,7 @@
     </v-toolbar>
     <main>
       <transition name="slide-fade">
-        <router-view v-if="post"></router-view>
+        <router-view></router-view>
       </transition>
     </main>
     <v-progress-linear :value="progress" v-model="progress" height="10" info></v-progress-linear>
@@ -40,7 +40,6 @@ export default {
     return {
       inited: false,
       title: this.$route.name,
-      post: false
     };
   },
   computed: {
@@ -57,7 +56,6 @@ export default {
   watch: {
     $route() {
       this.title = this.$route.name;
-      this.fetchData();
     }
   },
   methods: {
@@ -72,20 +70,6 @@ export default {
       fetch: 'getAllData',
       setProgress: 'setProgress'
     }),
-    fetchData() {
-      this.post = false;
-      let p = 0;
-      const timer = setInterval(() => {
-        if (p === 100) {
-          this.post = true;
-          p = 100;
-          this.setProgress(p);
-          return clearInterval(timer);
-        }
-        p += 25;
-        this.setProgress(p);
-      }, 500);
-    }
   },
   beforeUpdate() {
     if (this.$route.path !== '/login' && this.inited === false) {

@@ -16,7 +16,8 @@ exports.dailyUndoneNotice = async () => {
     raw: true,
     where: {
       deadline: {
-        $lt: moment().endOf('day').valueOf()
+        $lt: moment().endOf('day').valueOf(),
+        $gt: 0
       },
       status: 1
     }

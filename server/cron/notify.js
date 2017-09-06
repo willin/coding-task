@@ -11,6 +11,29 @@ const filterUsers = async (tasks) => {
   return users;
 };
 
+exports.dailyUndoneNotice = async () => {
+  const tasks = await Task.findAll({
+    raw: true,
+    where: {
+      deadline: {
+        $lt: moment().endOf('day').valueOf()
+      },
+      status: 1
+    }
+  });
+  const users = await filterUsers(tasks);
+  let msg = '过期任务提示:\n\n';
+  const userTasks = users.map(x => ({
+    username: x.name,
+    tasks:
+      tasks.filter(y => y.owner_id === x.id).sort((t1, t2) => t2.deadline - t1.deadline)
+        .map(t => `- ${t.content} ${t.deadline !== 0 ? `(${moment(t.deadline).format('YYYY-MM-DD')})` : ''}\n`).join('')
+  }));
+  msg += userTasks.map(x => `### ${x.username}\n\n${x.tasks}`).join('\n');
+  const result = await bot(msg);
+  return result;
+};
+
 exports.dailyNotice = async () => {
   const tasks = await Task.findAll({
     raw: true,

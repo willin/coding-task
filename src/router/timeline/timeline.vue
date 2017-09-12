@@ -46,6 +46,10 @@
       <v-card>
         <v-select label="紧急程度" v-bind:items="priorities" v-model="selectedPriority"></v-select>
       </v-card>
+      <v-card>
+        筛选结果：
+        <strong>{{countTasks}}</strong>个任务
+      </v-card>
     </v-navigation-drawer>
   </div>
 </template>
@@ -59,6 +63,7 @@ export default {
     return {
       drawer: false,
       search: '',
+      countTasks: 0,
       showDone: false,
       menuStart: false,
       menuEnd: false,
@@ -118,6 +123,7 @@ export default {
       if (this.dateEnd !== null) {
         result = result.filter(x => x.deadline < new Date(`${this.dateEnd} 00:00:00`).getTime());
       }
+      this.countTasks = result.length;
       return result;
     },
     reset() {

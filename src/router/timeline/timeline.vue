@@ -17,6 +17,9 @@
         <v-switch label="显示已完成" v-model="showDone"></v-switch>
       </v-card>
       <v-card>
+        <v-select label="截止日期" v-bind:items="deadlines" v-model="selectedDeadline"></v-select>
+      </v-card>
+      <v-card>
         <v-select label="执行者" v-bind:items="users" item-text="name" item-value="id" v-model="selectedOwners" multiple chips></v-select>
       </v-card>
       <v-card>
@@ -56,7 +59,7 @@ export default {
     return {
       drawer: false,
       search: '',
-      showDone: true,
+      showDone: false,
       menuStart: false,
       menuEnd: false,
       dateStart: null,
@@ -64,6 +67,12 @@ export default {
       selectedOwners: [],
       selectedCreator: 0,
       selectedPriority: -1,
+      selectedDeadline: 1,
+      deadlines: [
+        { text: '全部', value: -1 },
+        { text: '未设置', value: 0 },
+        { text: '已设置', value: 1 }
+      ],
       priorities: [
         { text: '全部', value: -1 },
         { text: '重要且紧急', value: 3 },
@@ -83,6 +92,13 @@ export default {
         result = this.tasks;
       } else {
         result = this.tasksUndone;
+      }
+      if (this.selectedDeadline !== -1) {
+        if (this.selectedDeadline === 0) {
+          result = result.filter(x => x.deadline === 0);
+        } else {
+          result = result.filter(x => x.deadline !== 0);
+        }
       }
       if (this.selectedOwners.length > 0) {
         result = result.filter(x => this.selectedOwners.includes(x.owner_id));

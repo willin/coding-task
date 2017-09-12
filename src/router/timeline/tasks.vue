@@ -4,7 +4,7 @@
       <li v-if="index===0 || (task.deadline !== 0 && (moment(tasks[index - 1].deadline).format('YYYY') !== moment(task.deadline).format('YYYY')))" class="year" :key="index">
         <p class="timeline-date"></p>
         <div class="timeline-content">
-          <h4>{{ moment(task.deadline).format('YYYY年') }}</h4>
+          <h4>{{ task.deadline === 0 ? '未设置截止日期' : moment(task.deadline).format('YYYY年') }}</h4>
         </div>
       </li>
       <li v-else-if="tasks[index - 1].deadline !== 0 && task.deadline === 0" class="year" :key="index">
@@ -22,7 +22,7 @@
         <div class="timeline-content">
           <h6>
             <span>
-              <img v-bind:src=" task.owner.avatar.startsWith('/') ? `https://coding.net${task.owner.avatar}` : task.owner.avatar" />
+              <img v-bind:src="(task.owner.avatar && task.owner.avatar.startsWith('/')) ? `https://coding.net${task.owner.avatar}` : task.owner.avatar" />
             </span>
             <span class='grey--text text--darken-2'>{{ task.owner.name }} - </span>
             <a :href="'https://coding.net/' + task.project.project_path + '/task/' + task.id " target="_blank">

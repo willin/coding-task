@@ -28,8 +28,7 @@
         <router-view></router-view>
       </transition>
     </main>
-    <v-progress-linear :value="progress" height="10" info>
-    </v-progress-linear>
+    <v-progress-linear :value="progress" v-model="progress" height="10" info></v-progress-linear>
   </v-app>
 </template>
 
@@ -40,7 +39,7 @@ export default {
   data() {
     return {
       inited: false,
-      title: this.$route.name
+      title: this.$route.name,
     };
   },
   computed: {
@@ -54,6 +53,11 @@ export default {
       };
     }
   },
+  watch: {
+    $route() {
+      this.title = this.$route.name;
+    }
+  },
   methods: {
     async init() {
       await this.fetch();
@@ -65,21 +69,14 @@ export default {
     ...mapActions({
       fetch: 'getAllData',
       setProgress: 'setProgress'
-    })
-  },
-  watch: {
-    $route() {
-      this.title = this.$route.name;
-    }
+    }),
   },
   beforeUpdate() {
     if (this.$route.path !== '/login' && this.inited === false) {
       this.init();
     }
   },
-  mounted() {
-    this.setProgress(100);
-  }
+  mounted() { }
 };
 </script>
 

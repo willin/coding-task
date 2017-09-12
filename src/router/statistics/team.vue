@@ -23,7 +23,7 @@
 </style>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/polar';
@@ -228,7 +228,10 @@ export default {
           }
         ]
       };
-    }
+    },
+    ...mapActions({
+      setProgress: 'setProgress'
+    })
   },
   computed: {
     ...mapGetters([
@@ -236,6 +239,21 @@ export default {
       'projects',
       'tasks'
     ])
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.setProgress(100);
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    next(
+      this.setProgress(0)
+    );
+  },
+  beforeRouteUpdate(to, from, next) {
+    next(
+      this.setProgress(0)
+    );
   }
 };
 </script>

@@ -10,6 +10,7 @@ import statisticsProject from './statistics/project.vue';
 import statisticsUser from './statistics/user.vue';
 import login from './login';
 import { STORAGE_PREFIX } from '../config';
+// import actions from '../store/actions';
 
 Vue.use(Router);
 
@@ -34,7 +35,6 @@ const router = new Router({
     },
     {
       path: '/statistics',
-      name: '任务统计',
       component: statistics,
       children: [
         {

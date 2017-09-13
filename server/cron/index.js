@@ -5,8 +5,8 @@ const { refreshToken } = require('./token');
 const { dailyNotice, dailyUndoneNotice, notice } = require('./notify');
 
 /* eslint-disable no-new */
-// 更新任务数据, 每隔10分定时执行
-new CronJob('0 */10 * * * *', async () => {
+// 更新任务数据, 6点到晚上8点每小时50分定时执行
+new CronJob('0 50 6-20 * * *', async () => {
   await sync();
 }, null, true, 'Asia/Shanghai');
 

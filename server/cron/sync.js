@@ -78,9 +78,9 @@ module.exports = async () => {
     where: {
       task: false
     }
-  }, condition);
+  });
   await Task.update({
     task: false
-  });
+  }, condition);
   return true;
 };

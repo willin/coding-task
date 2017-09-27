@@ -2,6 +2,16 @@
 
 [![github](https://img.shields.io/github/followers/willin.svg?style=social&label=Follow)](https://github.com/willin) [![codebeat badge](https://codebeat.co/badges/701c238c-740d-418d-8474-ffa60c0ec201)](https://codebeat.co/projects/github-com-airdwing-coding-task-master)
 
+## 注意事项
+
+即将重构，主要分为以下几点：
+
+1. 解除 MySQL 中 Coding 数据同步
+2. 不同用户间分别看到各自的组织、项目和任务，不再有权访问所有
+3. 添加任务管理功能（新增，修改，详情评论等）
+4. 前后端项目分离，完善测试代码覆盖率
+
+---
 
 前端基于Vue/Vuex/Vuetify,通过Mockjs模拟测试数据,后端基于Sequelize/Koa的Coding团队任务管理系统. 一个完全前后端分离的完整项目演示.
 

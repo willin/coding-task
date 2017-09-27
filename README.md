@@ -19,9 +19,6 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [TODOs](#todos)
-  - [UI](#ui)
-  - [功能](#%E5%8A%9F%E8%83%BD)
 - [前端](#%E5%89%8D%E7%AB%AF)
   - [技术及框架](#%E6%8A%80%E6%9C%AF%E5%8F%8A%E6%A1%86%E6%9E%B6)
   - [目录结构](#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84)
@@ -33,30 +30,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-
-## TODOs
-
-### UI
-
-- 过场动画
-  - [x] 加载进度条 (需要优化)
-  - [x] 路由切换过渡 (需要优化)
-- [x] 四象限UI
-  - [ ] 筛选 (权重, 项目, 团队, 用户, 标签, 状态等)
-- [x] 时间轴UI
-  - [x] 筛选 (与四象限大部分重叠)  (需要美化)
-- 统计模块
-  - [x] 图表引入 (如:Echarts)
-  - [x] 用户统计  (需要优化)
-  - [x] 项目统计  (需要优化)
-  - [x] 团队综合统计 (需要优化)
-
-### 功能
-
-- [x] 数组筛选方法
-- [x] Webpack打包优化
-- [x] 任务按时间排序
-- [x] 筛选路由匹配
 
 ## 前端
 

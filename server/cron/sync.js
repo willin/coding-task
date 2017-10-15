@@ -27,7 +27,7 @@ const updateTasks = async (tasks) => {
     if (task.deadline) {
       deadline = new Date(`${new Date(task.deadline).toLocaleDateString()} 12:00:00`).getTime();
     }
-    await Task.upsert(Object.assign(task, { owner_id: owner.id, deadline, task: true }));
+    await Task.upsert(Object.assign(task, { owner_id: owner.id, deadline }));
   }
   return true;
 };
@@ -62,25 +62,7 @@ module.exports = async () => {
     const token = await redis.get('access_token');
     if (token === null) { return false; }
   }
-  const condition = {
-    where: {
-      id: {
-        $gt: 0
-      }
-    }
-  };
-  await Task.update({
-    task: false
-  }, condition);
   const teams = await getTeams();
   await updateTeams(teams);
-  await Task.destroy({
-    where: {
-      task: false
-    }
-  });
-  await Task.update({
-    task: false
-  }, condition);
   return true;
 };

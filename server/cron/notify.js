@@ -40,8 +40,8 @@ exports.dailyNotice = async () => {
     raw: true,
     where: {
       deadline: {
-        $gt: moment().startOf('day').valueOf(),
-        $lt: moment().endOf('day').valueOf()
+        $gt: moment().add(1, 'day').startOf('day').valueOf(),
+        $lt: moment().add(1, 'day').endOf('day').valueOf()
       },
       status: 1
     }
@@ -49,14 +49,14 @@ exports.dailyNotice = async () => {
   const users = await filterUsers(tasks);
   let msg = '';
   if (users.length === 0) {
-    msg = '今日竟然没有安排任务, 还想要年终奖么?';
+    msg = '明天竟然没有安排任务, 还想要年终奖么?';
   } else {
     const userTasks = users.map(x => ({
       username: x.name,
       tasks: tasks.filter(y => y.owner_id === x.id).map(z => z.content)
     }));
     if (users.length < 5) {
-      msg = '怎么今天只有这么几个小伙伴有任务? 偷懒是要打pp的.\n\n';
+      msg = '怎么明天只有这么几个小伙伴有任务? 偷懒是要打pp的.\n\n';
     }
     msg += userTasks.map(x => `### ${x.username}\n\n${x.tasks.map(t => `- ${t}\n`).join('')}`).join('\n');
   }
